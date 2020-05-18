@@ -1,33 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
 import './App.css';
 
-import PersistentDrawerLeft from './navigation-drawer/navbar';
+import Navbar from './navigation-drawer/navbar';
+
+import SignupPage from './signup/signup';
 
 function App() {
 	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
+
 	// setCurrentPage('test')
 	return (
-		<div className="App">
-			<header className="App-header">
-				<PersistentDrawerLeft
-					setCurrentPage={setCurrentPage}
-					currentPage={currentPage}
-				/>
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<BrowserRouter>
+			<div className="App">
+				<header className="App-header">
+					<Navbar
+						setCurrentPage={setCurrentPage}
+						currentPage={currentPage}
+					/>
+				</header>
+				<Switch>
+					<Route exact path="/signup" component={SignupPage} />
+					<Route path="*" render={() => <Redirect to="/" />} />
+				</Switch>
+			</div>
+		</BrowserRouter>
 	);
 }
 

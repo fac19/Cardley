@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerPaper: {
 		width: drawerWidth,
-		backgroundColor: 'black',
+		backgroundColor: '#282c34',
 		color: 'white',
 	},
 	drawerHeader: {
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 // TODO: title stays in same place while menu expands
 
-export default function PersistentDrawerLeft({ currentPage, setCurrentPage }) {
+export default function Navbar({ currentPage, setCurrentPage }) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
@@ -134,10 +134,12 @@ export default function PersistentDrawerLeft({ currentPage, setCurrentPage }) {
 						(text) => (
 							<ListItem
 								onClick={() => {
-									handleDrawerClose();
+									// handleDrawerClose();
 									setCurrentPage(() => text);
 								}}
 								button
+								component="a"
+								href={`/${text}`}
 								key={text}
 							>
 								<ListItemText primary={text} />
@@ -157,12 +159,12 @@ export default function PersistentDrawerLeft({ currentPage, setCurrentPage }) {
 		</div>
 	);
 }
-PersistentDrawerLeft.propTypes = {
+Navbar.propTypes = {
 	currentPage: PropTypes.string,
 	setCurrentPage: PropTypes.func,
 };
 
-PersistentDrawerLeft.defaultProps = {
+Navbar.defaultProps = {
 	currentPage: 'CARDLEY',
 	setCurrentPage: () => {}, // TODO: this can't be right...
 };
