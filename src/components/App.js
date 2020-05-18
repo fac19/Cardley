@@ -2,10 +2,18 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import PersistentDrawerLeft from './navigation-drawer/navbar';
+
 function App() {
+	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
+	// setCurrentPage('test')
 	return (
 		<div className="App">
 			<header className="App-header">
+				<PersistentDrawerLeft
+					setCurrentPage={setCurrentPage}
+					currentPage={currentPage}
+				/>
 				<img src={logo} className="App-logo" alt="logo" />
 				<p>
 					Edit <code>src/App.js</code> and save to reload.
