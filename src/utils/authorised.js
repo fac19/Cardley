@@ -1,7 +1,7 @@
 // import validateExp from './validateExp';
 
 function authorised() {
-	return false;
+	return true;
 }
 
 // This async function is likely not the right way to go about this. I'll do some reading tonight.

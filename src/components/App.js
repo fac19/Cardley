@@ -6,13 +6,13 @@ import './App.css';
 
 import Navbar from './navigation-drawer/navbar';
 
-import SignupPage from './signup/signup';
-import LoginPage from './Login/login';
-import Home from './Home/home';
-import ViewProfile from './ViewProfile/ViewProfile';
-import CustomPractice from './CustomPractice/customPractice';
-import YourDecks from './YourDecks/yourDecks';
-import Practice from './Practice/practice';
+import SignupPage from './pages/signup/signup';
+import LoginPage from './pages/Login/login';
+import Home from './pages/Home/home';
+import ViewProfile from './pages/ViewProfile/ViewProfile';
+import CustomPractice from './pages/CustomPractice/customPractice';
+import YourDecks from './pages/YourDecks/yourDecks';
+import Practice from './pages/Practice/practice';
 
 function App() {
 	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
