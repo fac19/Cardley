@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 
 import './App.css';
 
@@ -30,7 +31,7 @@ function App() {
 					<Route exact path="/signup" component={SignupPage} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/home" component={Home} />
-					<Route exact path="/practice" component={Practice} />
+					<ProtectedRoute path="/practice" component={Practice} />
 					<Route
 						exact
 						path="/custom-practice"
