@@ -6,6 +6,7 @@ import './App.css';
 import Navbar from './navigation-drawer/navbar';
 
 import SignupPage from './signup/signup';
+import LoginPage from './Login/login';
 import Home from './Home/home';
 import ViewProfile from './ViewProfile/ViewProfile';
 import CustomPractice from './CustomPractice/customPractice';
@@ -27,6 +28,7 @@ function App() {
 				</header>
 				<Switch>
 					<Route exact path="/signup" component={SignupPage} />
+					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/home" component={Home} />
 					<Route exact path="/practice" component={Practice} />
 					<Route
