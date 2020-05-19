@@ -1,20 +1,25 @@
-import validateExp from './validateExp';
+// import validateExp from './validateExp';
 
-async function authorised() {
-	const authString = localStorage.getItem('jwt');
-	if (!authString) {
-		return false;
-	}
-	const auth = JSON.parse(authString);
-	if (validateExp(auth.exp)) {
-		return fetch(`/server/verify/route/${auth.jwt}`).then(
-			(res) => res.status === '200',
-		);
-	}
+function authorised() {
 	return false;
-	// convert auth string to object
-	// return await fetch request to server, if res.status is 200 return true, else return false
 }
+
+// This async function is likely not the right way to go about this. I'll do some reading tonight.
+// async function authorised() {
+// 	const authString = localStorage.getItem('jwt');
+// 	if (!authString) {
+// 		return false;
+// 	}
+// 	const auth = JSON.parse(authString);
+// 	if (validateExp(auth.exp)) {
+// 		return fetch(`/server/verify/route/${auth.jwt}`).then(
+// 			(res) => res.status === '200',
+// 		);
+// 	}
+// 	return false;
+// 	// convert auth string to object
+// 	// return await fetch request to server, if res.status is 200 return true, else return false
+// }
 
 module.exports = authorised;
 
