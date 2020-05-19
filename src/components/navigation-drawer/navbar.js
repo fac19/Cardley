@@ -17,6 +17,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import removeSpaces from '../../utils/remove-spaces';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +102,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 							open && classes.hide,
 						)}
 					>
-						<MenuIcon />
+						<MenuIcon data-testid="hamburger" />
 					</IconButton>
 					<Typography variant="h6" noWrap>
 						{currentPage}
@@ -130,26 +132,30 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				</div>
 				<Divider />
 				<List>
-					{['Home', 'Practice', 'Custom Practice', 'Your Decks'].map(
-						(text) => (
-							<ListItem
-								onClick={() => {
-									// handleDrawerClose();
-									setCurrentPage(() => text);
-								}}
-								button
-								component="a"
-								href={`/${text}`}
-								key={text}
-							>
-								<ListItemText primary={text} />
-							</ListItem>
-						),
-					)}
+					{[
+						'Home',
+						'Practice',
+						'Custom Practice',
+						'Your Decks',
+						'View Profile',
+					].map((text) => (
+						<ListItem
+							onClick={() => {
+								handleDrawerClose();
+								setCurrentPage(() => text);
+							}}
+							button
+							component="a"
+							href={`/${removeSpaces(text)}`}
+							key={text}
+						>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
 				</List>
 				<Divider />
 				<List>
-					{['View profile', 'Log out'].map((text) => (
+					{['Log out'].map((text) => (
 						<ListItem onClick={handleDrawerClose} button key={text}>
 							<ListItemText primary={text} />
 						</ListItem>
