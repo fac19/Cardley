@@ -142,6 +142,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 						<ListItem
 							onClick={() => {
 								handleDrawerClose();
+
 								setCurrentPage(() => text);
 							}}
 							button
