@@ -32,13 +32,20 @@ function App() {
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/home" component={Home} />
 					<ProtectedRoute path="/practice" component={Practice} />
-					<Route
-						exact
+					<ProtectedRoute
 						path="/custom-practice"
 						component={CustomPractice}
 					/>
-					<Route exact path="/view-profile" component={ViewProfile} />
-					<Route exact path="/your-decks" component={YourDecks} />
+					<ProtectedRoute
+						exact
+						path="/view-profile"
+						component={ViewProfile}
+					/>
+					<ProtectedRoute
+						exact
+						path="/your-decks"
+						component={YourDecks}
+					/>
 					<Route path="*" render={() => <Redirect to="/" />} />
 				</Switch>
 			</div>
