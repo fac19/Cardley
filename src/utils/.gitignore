@@ -1,3 +1,0 @@
-#  this file makes sure git adds the dir even if it has no files
-
-!.gitignore
