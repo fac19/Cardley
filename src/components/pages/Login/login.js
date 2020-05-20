@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage() {
 	const classes = useStyles();
 
+	const submitHandler = () => {
+		// need to send data to utils/authoriseUser/login function
+	};
+
 	return (
 		<LoginPageDiv>
 			<Container component="main" maxWidth="xs">
@@ -51,7 +55,11 @@ export default function LoginPage() {
 					<Typography component="h1" variant="h5">
 						Login
 					</Typography>
-					<form className={classes.form} noValidate>
+					<form
+						className={classes.form}
+						noValidate
+						onSubmit={submitHandler}
+					>
 						<TextField
 							variant="outlined"
 							margin="normal"

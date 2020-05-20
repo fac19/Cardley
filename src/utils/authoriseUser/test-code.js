@@ -3,7 +3,7 @@
 const sampleIncomingLogin = {
 	user_id: 500,
 	user_name: 'Ivo',
-	expires: '1587375168', // this is midnight tonight
+	expires: '1590019199',
 	jwt: '123456789iasdof904rpg;nas[0u23rlnSDFAKSDF',
 };
 const stringifiedInfo = JSON.stringify(sampleIncomingLogin);
