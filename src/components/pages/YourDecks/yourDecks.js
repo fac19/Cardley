@@ -13,7 +13,6 @@ export default function YourDecks() {
 			authRequired: true,
 		};
 		getFetch(fetchObj).then((res) => {
-			console.log(res);
 			setDecks(res);
 			// console.log(res, typeof res)
 			// // setDecks(JSON.parse(res))
