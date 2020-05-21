@@ -51,8 +51,7 @@ export default function LoginPage() {
 		event.preventDefault(); // prevent page refresh
 		const form = document.querySelector('form');
 		const formData = new FormData(form);
-		console.log(formData.get('email'));
-		console.log(formData.get('password'));
+
 		login({
 			email: formData.get('email'),
 			password: formData.get('password'),

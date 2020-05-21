@@ -9,6 +9,7 @@ import Navbar from './navigation-drawer/navbar';
 import SignupPage from './pages/signup/signup';
 import LoginPage from './pages/Login/login';
 import Home from './pages/Home/home';
+import LoggedInHome from './pages/Home/loggedInHome';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
 import CustomPractice from './pages/CustomPractice/customPractice';
 import YourDecks from './pages/YourDecks/yourDecks';
@@ -30,7 +31,10 @@ function App() {
 				<Switch>
 					<Route exact path="/signup" component={SignupPage} />
 					<Route exact path="/login" component={LoginPage} />
+					{/* do we need a ternary to determine which home route (which checks if user is logged in)? */}
 					<Route exact path="/home" component={Home} />
+					<ProtectedRoute path="/home" component={LoggedInHome} />
+					{/* should we create a sepearte route for loggedInHome?  */}
 					<ProtectedRoute path="/practice" component={Practice} />
 					<ProtectedRoute
 						path="/custom-practice"
