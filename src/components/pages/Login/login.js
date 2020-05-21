@@ -15,8 +15,10 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import login from '../../../utils/authoriseUser/login';
 
+// this is for styled-components styling
 const LoginPageDiv = styled.div``;
 
+// this is for material UI styling
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
