@@ -9,7 +9,7 @@ const postFetch = ({ endpoint, body, errorMessage }) => {
 		method: 'POST',
 		mode: 'cors',
 		headers,
-		body,
+		body: JSON.stringify(body),
 	};
 
 	const urlAndEndpoint = url + endpoint;
