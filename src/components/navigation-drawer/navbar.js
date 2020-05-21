@@ -16,6 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from 'react-router-dom';
 
 import removeSpaces from '../../utils/remove-spaces';
 
@@ -71,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar({ currentPage, setCurrentPage }) {
 	const classes = useStyles();
+	const history = useHistory();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
@@ -80,6 +82,12 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 
 	const handleDrawerClose = () => {
 		setOpen(false);
+	};
+
+	const logoutHandler = () => {
+		localStorage.removeItem('auth');
+		handleDrawerClose();
+		history.push('/');
 	};
 
 	return (
@@ -157,7 +165,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				<Divider />
 				<List>
 					{['Log out'].map((text) => (
-						<ListItem onClick={handleDrawerClose} button key={text}>
+						<ListItem onClick={logoutHandler} button key={text}>
 							<ListItemText primary={text} />
 						</ListItem>
 					))}

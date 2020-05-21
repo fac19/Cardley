@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+
+import signup from '../../../utils/authoriseUser/signup';
 
 const SignupPageDiv = styled.div``;
 
@@ -54,7 +57,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignupPage() {
+	const history = useHistory();
 	const classes = useStyles();
+	const [errorMsg, setErrorMsg] = useState('');
+
+	const submitHandler = (event) => {
+		event.preventDefault(); // prevent page refresh
+		const form = document.querySelector('form');
+		const formData = new FormData(form);
+
+		signup({
+			name: formData.get('name'),
+			email: formData.get('email'),
+			password: formData.get('password'),
+		})
+			.then(() => history.push('/'))
+			.catch((error) => setErrorMsg(error.toString()));
+		// should actually be second last page - accessible by same api
+	};
 
 	return (
 		<SignupPageDiv>
@@ -65,6 +85,17 @@ export default function SignupPage() {
 						Sign in
 					</Typography>
 					<form className={classes.form} noValidate>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							id="name"
+							label="Username"
+							name="name"
+							autoComplete="name"
+							autoFocus
+						/>
 						<TextField
 							variant="outlined"
 							margin="normal"
@@ -86,6 +117,8 @@ export default function SignupPage() {
 							type="password"
 							id="password"
 							autoComplete="current-password"
+							error
+							helperText={errorMsg}
 						/>
 						<FormControlLabel
 							control={
@@ -99,6 +132,7 @@ export default function SignupPage() {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
+							onClick={submitHandler}
 						>
 							Sign In
 						</Button>

@@ -12,6 +12,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
 
+import { useHistory } from 'react-router-dom';
+import login from '../../../utils/authoriseUser/login';
+
 const LoginPageDiv = styled.div``;
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +44,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginPage() {
+	const history = useHistory();
 	const classes = useStyles();
+
+	const submitHandler = (event) => {
+		event.preventDefault(); // prevent page refresh
+		const form = document.querySelector('form');
+		const formData = new FormData(form);
+		console.log(formData.get('email'));
+		console.log(formData.get('password'));
+		login({
+			email: formData.get('email'),
+			password: formData.get('password'),
+		}).then(() => history.push('/practice'));
+		// should actually be second last page - accessible by same api
+	};
 
 	return (
 		<LoginPageDiv>
@@ -51,7 +68,12 @@ export default function LoginPage() {
 					<Typography component="h1" variant="h5">
 						Login
 					</Typography>
-					<form className={classes.form} noValidate>
+					<form
+						className={classes.form}
+						noValidate
+						onSubmit={submitHandler}
+					>
+						+{' '}
 						<TextField
 							variant="outlined"
 							margin="normal"
@@ -86,6 +108,7 @@ export default function LoginPage() {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
+							onClick={submitHandler}
 						>
 							Login
 						</Button>
