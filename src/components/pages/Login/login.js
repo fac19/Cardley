@@ -15,8 +15,10 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import login from '../../../utils/authoriseUser/login';
 
+// this is for styled-components styling
 const LoginPageDiv = styled.div``;
 
+// this is for material UI styling
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
@@ -51,8 +53,7 @@ export default function LoginPage() {
 		event.preventDefault(); // prevent page refresh
 		const form = document.querySelector('form');
 		const formData = new FormData(form);
-		console.log(formData.get('email'));
-		console.log(formData.get('password'));
+
 		login({
 			email: formData.get('email'),
 			password: formData.get('password'),

@@ -6,7 +6,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import authorised from '../../utils/authoriseUser/authorised';
-import Home from '../pages/Home/home';
+import Landing from '../pages/Home/landing';
 
 export default function ProtectedRoute({ path, component }) {
 	if (authorised()) {
@@ -22,5 +22,5 @@ ProtectedRoute.propTypes = {
 
 ProtectedRoute.defaultProps = {
 	path: '/',
-	component: Home,
+	component: Landing,
 };
