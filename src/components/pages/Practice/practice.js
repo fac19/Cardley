@@ -13,6 +13,10 @@ import ReactCardFlip from 'react-card-flip';
 
 const PracticeDiv = styled.div``;
 
+const RangeInputDiv = styled.div`
+	height: 75px;
+`;
+
 const useStyles = makeStyles({
 	root: {
 		width: 275,
@@ -24,44 +28,43 @@ const useStyles = makeStyles({
 	pos: {
 		marginBottom: 12,
 	},
+	cardButton: {
+		width: '80%',
+	},
 });
 
 export default function Practice(props) {
 	const classes = useStyles();
 	const [isFlipped, setIsFlipped] = useState(false);
-	const [currentDeck, setCurrentDeck] = useState('');
+	const [currentDeck, setCurrentDeck] = useState({});
+	const [cardColor, setCardColor] = useState('rgb(244,211,66)');
 
-	console.log('DECKS TO PRCATICE:', props.deckToPractice[0]);
+	// console.log('DECKS TO PRCATICE:', props.deckToPractice[0]);
 
 	const [currentCard, setCorrectCard] = useState({ front_text: 'loading' });
 
 	useEffect(() => {
 		const whichDeck =
 			props.deckToPractice[randInt(0, props.deckToPractice.length - 1)];
-		console.log(whichDeck.deck_id);
+
 		setCurrentDeck(whichDeck);
-		getFetch(`decks/first/${whichDeck.deck_id}`).then((cardRecord) => {
+		console.log(`decks/first/${whichDeck.deck_id}`);
+		getFetch({
+			endpoint: `decks/first/${whichDeck.deck_id}`,
+			errorMessage: "couldn't fetch card data",
+			authRequired: true,
+		}).then((cardRecord) => {
 			console.log('WE GOT THIS BACK:', cardRecord);
 		});
 	}, []);
 
-	// Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
-
-	// useEffect(() => {
-	//   async function fetchData() {
-	// 	// You can await here
-	// 	const response = await MyAPI.getData(someId);
-	// 	// ...
-	//   }
-	//   fetchData();
-	// }, [someId]); // Or [] if effect doesn't need props or state
-
-	// Learn more about data fetching with Hooks: https://fb.me/react-hooks
-
 	return (
 		<PracticeDiv>
 			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-				<Card className={classes.root} variant="outlined">
+				<Card
+					className={classes.root}
+					style={{ backgroundColor: cardColor }}
+				>
 					<CardContent>
 						<Typography
 							className={classes.title}
@@ -77,7 +80,11 @@ export default function Practice(props) {
 					</CardContent>
 				</Card>
 
-				<Card className={classes.root} variant="outlined">
+				<Card
+					className={classes.root}
+					variant="outlined"
+					style={{ backgroundColor: cardColor }}
+				>
 					<CardContent>
 						<Typography
 							className={classes.title}
@@ -93,7 +100,13 @@ export default function Practice(props) {
 					</CardContent>
 				</Card>
 			</ReactCardFlip>
-			<Button size="small" onClick={() => setIsFlipped(!isFlipped)}>
+			<RangeInputDiv></RangeInputDiv>
+			<Button
+				className={classes.cardButton}
+				variant="contained"
+				color="primary"
+				onClick={() => setIsFlipped(!isFlipped)}
+			>
 				Flip
 			</Button>
 		</PracticeDiv>

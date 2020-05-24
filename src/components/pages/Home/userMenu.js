@@ -11,6 +11,12 @@ const UserMenuDiv = styled.div`
 	height: 75vh;
 	justify-content: space-around;
 	width: 90vw;
+	@media (min-width: 568px) {
+		height: 55vh;
+		width: 40vw;
+		max-height: 550px;
+		max-width: 350px;
+	}
 `;
 
 const LogoContainer = styled.div`
