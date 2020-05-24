@@ -28,6 +28,7 @@ function App() {
 						currentPage={currentPage}
 					/>
 				</header>
+				<h1>Hello World!</h1>
 				<Switch>
 					<Route exact path="/signup" component={SignupPage} />
 					<Route exact path="/login" component={LoginPage} />
