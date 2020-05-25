@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 // import Link from '@material-ui/core/Link';
 
@@ -26,26 +25,26 @@ const LogoContainer = styled.div`
 	width: 100%;
 `;
 
-const styles = {
-	root: {
-		background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-		borderRadius: 3,
-		border: 0,
-		color: 'white',
-		height: 48,
-		padding: '0 30px',
-		boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-	},
-};
+// const styles = {
+// 	root: {
+// 		background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+// 		borderRadius: 3,
+// 		border: 0,
+// 		color: 'white',
+// 		height: 48,
+// 		padding: '0 30px',
+// 		boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+// 	},
+// };
 
-export default function userMenu(props) {
-	const { classes } = props;
+export default function userMenu() {
+	// const { classes } = props;
 	return (
 		<UserMenuDiv>
 			home
 			<LogoContainer>Logo here</LogoContainer>
 			<Button
-				className={clsx(classes.root)}
+				// className={clsx(classes.root)}
 				component={Link}
 				to="/practice"
 				variant="contained"

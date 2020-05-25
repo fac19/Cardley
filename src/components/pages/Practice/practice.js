@@ -1,41 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import randInt from '../../../utils/helpers/randomNumberGenerator';
 // import getFetch from '../../../utils/fetchData/get-fetch';
 import fetchData from '../../../utils/fetchData/fetchData';
-
-import ReactCardFlip from 'react-card-flip';
 
 import OneSidedCard from '../../cards/oneSidedCard';
 import TwoSidedCard from '../../cards/twoSidedCard';
 
 const PracticeDiv = styled.div``;
 
-const RangeInputDiv = styled.div`
-	height: 75px;
-`;
+// const useStyles = makeStyles({
+// 	root: {
+// 		width: 275,
+// 		height: 300,
+// 	},
+// 	title: {
+// 		fontSize: 14,
+// 	},
+// 	pos: {
+// 		marginBottom: 12,
+// 	},
+// 	cardButton: {
+// 		width: '80%',
+// 	},
+// });
 
-const useStyles = makeStyles({
-	root: {
-		width: 275,
-		height: 300,
-	},
-	title: {
-		fontSize: 14,
-	},
-	pos: {
-		marginBottom: 12,
-	},
-	cardButton: {
-		width: '80%',
-	},
-});
-
-export default function Practice(props) {
-	const classes = useStyles();
-	const [isFlipped, setIsFlipped] = useState(false);
+export default function Practice({ decksToPractice }) {
+	// const classes = useStyles();
 	const [currentDeck, setCurrentDeck] = useState({});
 	const [currentCard, setCurrentCard] = useState({
 		card: {
@@ -44,15 +37,16 @@ export default function Practice(props) {
 		},
 	});
 	const [oneSided, setOneSided] = useState('false');
+	const [sliderValue, setSliderValue] = useState(1);
 
 	useEffect(() => {
 		const whichDeck =
-			props.deckToPractice[randInt(0, props.deckToPractice.length - 1)];
+			decksToPractice[randInt(0, decksToPractice.length - 1)].deck_id;
 		setCurrentDeck(whichDeck);
-		console.log(`decks/first/${whichDeck.deck_id}`);
-		fetchData('get', `decks/first/${whichDeck.deck_id}`)
+		// console.log(`decks/first/${whichDeck}`);
+		fetchData('get', `decks/first/${whichDeck}`)
 			.then((cardRecord) => {
-				console.log('WE GOT THIS BACK:', cardRecord);
+				// console.log('WE GOT THIS BACK:', cardRecord);
 				setCurrentCard(cardRecord);
 				// console.log(
 				// 	'setOneSided :',
@@ -61,28 +55,32 @@ export default function Practice(props) {
 				setOneSided(
 					!cardRecord.card.back_text && !cardRecord.card.back_image,
 				);
-				console.log(oneSided);
+				setSliderValue(Math.floor(cardRecord.deck_length) / 2 || 1); // TODO
+				// console.log(oneSided);
 			})
+			// eslint-disable-next-line no-console
 			.catch(console.log);
-	}, []);
+	}, [decksToPractice]);
 
-	const nextCardHandler = (position) => {
-		console.log('Moving to next card');
+	const nextCardHandler = (callback) => {
+		// console.log('decksToPractice.length :', decksToPractice.length);
+		// console.log('random num is : ', randInt(0, decksToPractice.length - 1));
+		// console.log('Moving to next card');
 		// call place with a place value
 		const whichDeck =
-			props.deckToPractice[randInt(0, props.deckToPractice.length - 1)];
-
+			decksToPractice[randInt(0, decksToPractice.length - 1)].deck_id;
+		// console.log('newRandomlySelectedDeck is :', whichDeck);
 		fetchData('POST', 'place/', {
 			body: {
 				deck_id: currentDeck,
 				card_id: currentCard.card.card_id,
-				place: 1,
+				place: sliderValue - 1,
 				next_deck: whichDeck,
 			},
 		})
-			.then((cardRecord) => {
+			.then(async (cardRecord) => {
 				setCurrentDeck(whichDeck);
-				console.log('WE GOT THIS BACK:', cardRecord);
+				// console.log('WE GOT THIS BACK:', cardRecord);
 				setCurrentCard(cardRecord);
 				// console.log(
 				// 	'setOneSided :',
@@ -91,12 +89,12 @@ export default function Practice(props) {
 				setOneSided(
 					!cardRecord.card.back_text && !cardRecord.card.back_image,
 				);
-				console.log(oneSided);
+				callback();
 			})
-			.catch((err) => {
-				console.log('MSG:', err.message);
-				console.log('CODE:', err.code);
-				console.log('DEETS', err.details);
+			.catch(() => {
+				// console.log('MSG:', err.message);
+				// console.log('CODE:', err.code);
+				// console.log('DEETS', err.details);
 			});
 	};
 
@@ -109,6 +107,8 @@ export default function Practice(props) {
 					currentDeck={currentDeck}
 					currentCard={currentCard}
 					nextCardHandler={nextCardHandler}
+					sliderValue={sliderValue}
+					setSliderValue={setSliderValue}
 				/>
 			)}
 			{oneSided && (
@@ -117,6 +117,8 @@ export default function Practice(props) {
 					currentDeck={currentDeck}
 					currentCard={currentCard}
 					nextCardHandler={nextCardHandler}
+					sliderValue={sliderValue}
+					setSliderValue={setSliderValue}
 				/>
 			)}
 		</PracticeDiv>
@@ -124,5 +126,18 @@ export default function Practice(props) {
 }
 
 Practice.propTypes = {
-	decksToPractice: PropTypes.object,
+	decksToPractice: PropTypes.arrayOf(PropTypes.object),
+};
+
+Practice.defaultProps = {
+	decksToPractice: [
+		{
+			deck_name: 'French Vocab',
+			deck_id: 1,
+		},
+		{
+			deck_name: 'ES6 APIs',
+			deck_id: 2,
+		},
+	],
 };
