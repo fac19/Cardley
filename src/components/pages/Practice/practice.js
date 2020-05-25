@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import randInt from '../../../utils/helpers/randomNumberGenerator';
-import getFetch from '../../../utils/fetchData/get-fetch';
+// import getFetch from '../../../utils/fetchData/get-fetch';
+import fetchData from '../../../utils/fetchData/fetchData';
 
 import ReactCardFlip from 'react-card-flip';
+
+import OneSidedCard from '../../cards/oneSidedCard';
+import TwoSidedCard from '../../cards/twoSidedCard';
 
 const PracticeDiv = styled.div``;
 
@@ -37,78 +37,88 @@ export default function Practice(props) {
 	const classes = useStyles();
 	const [isFlipped, setIsFlipped] = useState(false);
 	const [currentDeck, setCurrentDeck] = useState({});
-	const [cardColor, setCardColor] = useState('rgb(244,211,66)');
-
-	// console.log('DECKS TO PRCATICE:', props.deckToPractice[0]);
-
-	const [currentCard, setCorrectCard] = useState({ front_text: 'loading' });
+	const [currentCard, setCurrentCard] = useState({
+		card: {
+			front_text: 'Loading...',
+			back_text: 'Loading...',
+		},
+	});
+	const [oneSided, setOneSided] = useState('false');
 
 	useEffect(() => {
 		const whichDeck =
 			props.deckToPractice[randInt(0, props.deckToPractice.length - 1)];
-
 		setCurrentDeck(whichDeck);
 		console.log(`decks/first/${whichDeck.deck_id}`);
-		getFetch({
-			endpoint: `decks/first/${whichDeck.deck_id}`,
-			errorMessage: "couldn't fetch card data",
-			authRequired: true,
-		}).then((cardRecord) => {
-			console.log('WE GOT THIS BACK:', cardRecord);
-		});
+		fetchData('get', `decks/first/${whichDeck.deck_id}`)
+			.then((cardRecord) => {
+				console.log('WE GOT THIS BACK:', cardRecord);
+				setCurrentCard(cardRecord);
+				// console.log(
+				// 	'setOneSided :',
+				// 	!cardRecord.card.back_text && !cardRecord.card.back_image,
+				// );
+				setOneSided(
+					!cardRecord.card.back_text && !cardRecord.card.back_image,
+				);
+				console.log(oneSided);
+			})
+			.catch(console.log);
 	}, []);
+
+	const nextCardHandler = (position) => {
+		console.log('Moving to next card');
+		// call place with a place value
+		const whichDeck =
+			props.deckToPractice[randInt(0, props.deckToPractice.length - 1)];
+
+		fetchData('POST', 'place/', {
+			body: {
+				deck_id: currentDeck,
+				card_id: currentCard.card.card_id,
+				place: 1,
+				next_deck: whichDeck,
+			},
+		})
+			.then((cardRecord) => {
+				setCurrentDeck(whichDeck);
+				console.log('WE GOT THIS BACK:', cardRecord);
+				setCurrentCard(cardRecord);
+				// console.log(
+				// 	'setOneSided :',
+				// 	!cardRecord.card.back_text && !cardRecord.card.back_image,
+				// );
+				setOneSided(
+					!cardRecord.card.back_text && !cardRecord.card.back_image,
+				);
+				console.log(oneSided);
+			})
+			.catch((err) => {
+				console.log('MSG:', err.message);
+				console.log('CODE:', err.code);
+				console.log('DEETS', err.details);
+			});
+	};
 
 	return (
 		<PracticeDiv>
-			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-				<Card
-					className={classes.root}
-					style={{ backgroundColor: cardColor }}
-				>
-					<CardContent>
-						<Typography
-							className={classes.title}
-							color="textSecondary"
-							gutterBottom
-						>
-							{currentDeck.deck_name}
-						</Typography>
-
-						<Typography variant="body1" component="p">
-							{currentCard.front_text}
-						</Typography>
-					</CardContent>
-				</Card>
-
-				<Card
-					className={classes.root}
-					variant="outlined"
-					style={{ backgroundColor: cardColor }}
-				>
-					<CardContent>
-						<Typography
-							className={classes.title}
-							color="textSecondary"
-							gutterBottom
-						>
-							Mathematics
-						</Typography>
-
-						<Typography variant="body1" component="p">
-							3
-						</Typography>
-					</CardContent>
-				</Card>
-			</ReactCardFlip>
-			<RangeInputDiv></RangeInputDiv>
-			<Button
-				className={classes.cardButton}
-				variant="contained"
-				color="primary"
-				onClick={() => setIsFlipped(!isFlipped)}
-			>
-				Flip
-			</Button>
+			{/* if card is two sided */}
+			{!oneSided && (
+				<TwoSidedCard
+					// cardColor={cardColor}
+					currentDeck={currentDeck}
+					currentCard={currentCard}
+					nextCardHandler={nextCardHandler}
+				/>
+			)}
+			{oneSided && (
+				<OneSidedCard
+					// cardColor={cardColor}
+					currentDeck={currentDeck}
+					currentCard={currentCard}
+					nextCardHandler={nextCardHandler}
+				/>
+			)}
 		</PracticeDiv>
 	);
 }
