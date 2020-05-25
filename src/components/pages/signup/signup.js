@@ -82,7 +82,7 @@ export default function SignupPage() {
 				<CssBaseline />
 				<div className={classes.paper}>
 					<Typography component="h1" variant="h5">
-						Sign in
+						Sign up
 					</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
