@@ -1,30 +1,22 @@
 import React from 'react';
-import getFetch from '../../../utils/fetchData/get-fetch';
 import CustomPractice from './CustomPractice/customPractice';
 import PracticeCard from './practiceCard/practiceCard';
+import useYourDecks from '../../../hooks/useYourDecks';
 
 export default function Practice() {
-	const [selectedDecks, setSelectedDecks] = React.useState(null);
+	const [selectedDecks, setSelectedDecks] = React.useState({});
 	const [decks, setDecks] = React.useState(null);
-	const [makingSelection, setMakingSelection] = React.useState(true);
+	const [makingSelection, setMakingSelection] = React.useState(true); // don't use boolean use some value e.g. string which can represent three possibilities, choosing, revising, and paused for celebrations with option to stop revising or keep revising.
+	const [timer, setTimer] = React.useState(5);
+	useYourDecks({ setDecks, setSelectedDecks });
 
-	React.useEffect(() => {
-		const fetchObj = {
-			endpoint: 'decks',
-			errorMessage: 'could not get your decks',
-			authRequired: true,
-		};
-		getFetch(fetchObj).then((res) => {
-			setDecks(res);
-			setSelectedDecks(
-				res.reduce((returnObj, deck) => {
-					const newObj = { ...returnObj };
-					newObj[deck.deck_id] = false;
-					return newObj;
-				}, {}),
-			);
-		});
-	}, []);
+	// if (makingSelection === true) {
+	// 	return ()
+	// } else if () {
+
+	// } else {
+
+	// }
 
 	const thingToRender = makingSelection ? (
 		<CustomPractice
@@ -33,6 +25,8 @@ export default function Practice() {
 			decks={decks}
 			setDecks={setDecks}
 			setMakingSelection={setMakingSelection}
+			timer={timer}
+			setTimer={setTimer}
 		/>
 	) : (
 		<PracticeCard decksToPractice={decks} />

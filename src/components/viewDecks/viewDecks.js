@@ -35,7 +35,6 @@ const useStyles = makeStyles({
 export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 	return (
 		<ViewDecksDiv>
-			<h2>Your Decks</h2>
 			{decks ? (
 				decks.map((deck) => (
 					<SelectableDeck
@@ -53,22 +52,26 @@ export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 }
 
 function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
-	const checkCard = () => {
-		setSelectedDecks(() => {
-			// eslint-disable-next-line no-param-reassign
-			selectedDecks[deck.deck_id] = !selectedDecks[deck.deck_id];
-			return selectedDecks;
-		});
-	};
+	console.log('SelectableDeck -> selectedDecks', selectedDecks);
+	const checkCard = (e) => {
+		const newSelectedDates = {
+			...selectedDecks,
+			[deck.deck_id]: !selectedDecks[deck.deck_id],
+		};
 
+		console.log(e.target.checked === true);
+		setSelectedDecks(newSelectedDates);
+	};
+	console.log('in component, ', selectedDecks);
 	const classes = useStyles();
 	return (
 		<FormControlLabel
 			control={
 				<Checkbox
-					// checked={checked}
-					onChange={checkCard}
-					name="checkedB"
+					checked={selectedDecks[deck.deck_id]}
+					// checked={false}
+					onClick={checkCard}
+					// name="checkedB"
 					color="primary"
 				/>
 			}
