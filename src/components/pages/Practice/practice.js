@@ -1,35 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 // import { makeStyles } from '@material-ui/core/styles';
 import randInt from '../../../utils/helpers/randomNumberGenerator';
 // import getFetch from '../../../utils/fetchData/get-fetch';
 import fetchData from '../../../utils/fetchData/fetchData';
-
+import { PracticeDiv } from './practice.styles';
 import OneSidedCard from '../../cards/oneSidedCard';
 import TwoSidedCard from '../../cards/twoSidedCard';
 
-const PracticeDiv = styled.div``;
-
-// const useStyles = makeStyles({
-// 	root: {
-// 		width: 275,
-// 		height: 300,
-// 	},
-// 	title: {
-// 		fontSize: 14,
-// 	},
-// 	pos: {
-// 		marginBottom: 12,
-// 	},
-// 	cardButton: {
-// 		width: '80%',
-// 	},
-// });
-
 export default function Practice({ decksToPractice }) {
 	// const classes = useStyles();
-	const [currentDeck, setCurrentDeck] = useState({});
+	const [currentDeck, setCurrentDeck] = useState();
 	const [currentCard, setCurrentCard] = useState({
 		card: {
 			front_text: 'Loading...',
@@ -46,7 +27,7 @@ export default function Practice({ decksToPractice }) {
 		// console.log(`decks/first/${whichDeck}`);
 		fetchData('get', `decks/first/${whichDeck}`)
 			.then((cardRecord) => {
-				// console.log('WE GOT THIS BACK:', cardRecord);
+				// console.log('WE GOT THIS BACK:', whichDeck);
 				setCurrentCard(cardRecord);
 				// console.log(
 				// 	'setOneSided :',
@@ -103,7 +84,6 @@ export default function Practice({ decksToPractice }) {
 			{/* if card is two sided */}
 			{!oneSided && (
 				<TwoSidedCard
-					// cardColor={cardColor}
 					currentDeck={currentDeck}
 					currentCard={currentCard}
 					nextCardHandler={nextCardHandler}
@@ -113,7 +93,6 @@ export default function Practice({ decksToPractice }) {
 			)}
 			{oneSided && (
 				<OneSidedCard
-					// cardColor={cardColor}
 					currentDeck={currentDeck}
 					currentCard={currentCard}
 					nextCardHandler={nextCardHandler}
