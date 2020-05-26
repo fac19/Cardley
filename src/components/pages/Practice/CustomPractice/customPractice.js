@@ -78,6 +78,18 @@ export default function CustomPractice({
 		setTimer(() => value);
 	};
 
+	const selectAll = () => {
+		const deckIds = Object.keys(selectedDecks);
+		console.log('selected decks', selectedDecks);
+		const newSelectedDecks = {};
+		deckIds.forEach((deck) => {
+			newSelectedDecks[deck] = true;
+		});
+		console.log('selectAll -> newSelectedDecks', newSelectedDecks);
+
+		setSelectedDecks(newSelectedDecks);
+	};
+
 	return (
 		<>
 			<PracticePageText>
@@ -120,7 +132,7 @@ export default function CustomPractice({
 				>
 					<Button
 						// className={classes.cardButton}
-						onClick={() => {}}
+						onClick={selectAll}
 					>
 						Select All
 					</Button>

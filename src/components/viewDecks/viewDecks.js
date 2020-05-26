@@ -52,17 +52,17 @@ export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 }
 
 function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
-	console.log('SelectableDeck -> selectedDecks', selectedDecks);
-	const checkCard = (e) => {
+	// console.log('SelectableDeck -> selectedDecks', selectedDecks);
+	const checkCard = () => {
 		const newSelectedDates = {
 			...selectedDecks,
 			[deck.deck_id]: !selectedDecks[deck.deck_id],
 		};
 
-		console.log(e.target.checked === true);
+		// console.log(e.target.checked === true);
 		setSelectedDecks(newSelectedDates);
 	};
-	console.log('in component, ', selectedDecks);
+	// console.log('in component, ', selectedDecks);
 	const classes = useStyles();
 	return (
 		<FormControlLabel
