@@ -13,10 +13,12 @@ export default function TwoSidedCard({
 	sliderValue,
 	currentDeck,
 	nextCardHandler,
+	isFlipped,
+	setIsFlipped,
 }) {
 	const classes = useStyles();
 	// const { children, open, value } = props;
-	const [isFlipped, setIsFlipped] = useState(false);
+	// const [isFlipped, setIsFlipped] = useState(false);
 	const [sliderColor, setSliderColor] = useState('rgb(64,84,181)');
 
 	const marks = [
@@ -108,9 +110,7 @@ export default function TwoSidedCard({
 						variant="contained"
 						color="default"
 						onClick={() => {
-							nextCardHandler(() => {
-								setIsFlipped(!isFlipped);
-							});
+							nextCardHandler();
 						}}
 					>
 						Next
@@ -131,6 +131,8 @@ TwoSidedCard.propTypes = {
 	sliderValue: PropTypes.number,
 	currentDeck: PropTypes.number,
 	nextCardHandler: PropTypes.func,
+	isFlipped: PropTypes.bool,
+	setIsFlipped: PropTypes.func,
 };
 
 TwoSidedCard.defaultProps = {
@@ -143,4 +145,6 @@ TwoSidedCard.defaultProps = {
 	sliderValue: 1,
 	currentDeck: {},
 	nextCardHandler: (a) => a,
+	isFlipped: false,
+	setIsFlipped: (a) => a,
 };
