@@ -87,7 +87,7 @@ export default function CustomPractice({
 		});
 		console.log('selectAll -> newSelectedDecks', newSelectedDecks);
 
-		setSelectedDecks(() => newSelectedDecks);
+		setSelectedDecks(newSelectedDecks);
 	};
 
 	return (
@@ -179,21 +179,15 @@ export default function CustomPractice({
 }
 
 CustomPractice.propTypes = {
-	selectedDecks: PropTypes.objectOf(PropTypes.string),
-	setSelectedDecks: PropTypes.func,
-	decks: PropTypes.arrayOf(PropTypes.object),
-	setDecks: PropTypes.func,
-	setMakingSelection: PropTypes.func,
+	selectedDecks: PropTypes.objectOf(PropTypes.string).isRequired,
+	setSelectedDecks: PropTypes.func.isRequired,
+	decks: PropTypes.arrayOf(PropTypes.object).isRequired,
+	setDecks: PropTypes.func.isRequired,
+	setMakingSelection: PropTypes.func.isRequired,
 	timer: PropTypes.number,
-	setTimer: PropTypes.func,
+	setTimer: PropTypes.func.isRequired,
 };
 
 CustomPractice.defaultProps = {
-	selectedDecks: {},
-	setSelectedDecks: () => {},
-	decks: [{}],
-	setDecks: () => {},
-	setMakingSelection: () => {},
 	timer: 0,
-	setTimer: () => {},
 };

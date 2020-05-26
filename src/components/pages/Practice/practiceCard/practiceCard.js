@@ -100,18 +100,18 @@ export default function PracticeCard({ decksToPractice }) {
 }
 
 PracticeCard.propTypes = {
-	decksToPractice: PropTypes.arrayOf(PropTypes.object),
+	decksToPractice: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-PracticeCard.defaultProps = {
-	decksToPractice: [
-		{
-			deck_name: 'French Vocab',
-			deck_id: 1,
-		},
-		{
-			deck_name: 'ES6 APIs',
-			deck_id: 2,
-		},
-	],
-};
+// PracticeCard.defaultProps = {
+// 	decksToPractice: [
+// 		{
+// 			deck_name: 'French Vocab',
+// 			deck_id: 1,
+// 		},
+// 		{
+// 			deck_name: 'ES6 APIs',
+// 			deck_id: 2,
+// 		},
+// 	],
+// };

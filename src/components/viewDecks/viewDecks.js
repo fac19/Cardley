@@ -64,6 +64,7 @@ function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
 	};
 	console.log('deck ', deck);
 	// console.log('in component, ', selectedDecks);
+	console.log('selectedDecks id', selectedDecks[deck.deck_id]);
 	const classes = useStyles();
 	return (
 		<FormControlLabel
@@ -88,25 +89,13 @@ function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
 }
 
 ViewDecks.propTypes = {
-	selectedDecks: PropTypes.arrayOf(PropTypes.object),
-	setSelectedDecks: PropTypes.func,
-	decks: PropTypes.arrayOf(PropTypes.object),
-};
-
-ViewDecks.defaultProps = {
-	selectedDecks: [{}],
-	setSelectedDecks: () => {},
-	decks: [{}],
+	selectedDecks: PropTypes.arrayOf(PropTypes.object).isRequired,
+	setSelectedDecks: PropTypes.func.isRequired,
+	decks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 SelectableDeck.propTypes = {
-	deck: PropTypes.objectOf(PropTypes.string),
-	selectedDecks: PropTypes.arrayOf(PropTypes.object),
-	setSelectedDecks: PropTypes.func,
-};
-
-SelectableDeck.defaultProps = {
-	deck: {},
-	selectedDecks: [{}],
-	setSelectedDecks: () => {},
+	deck: PropTypes.objectOf(PropTypes.string).isRequired,
+	selectedDecks: PropTypes.arrayOf(PropTypes.object).isRequired,
+	setSelectedDecks: PropTypes.func.isRequired,
 };
