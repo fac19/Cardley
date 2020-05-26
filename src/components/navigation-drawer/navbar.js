@@ -142,7 +142,6 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				<List>
 					{[
 						'Home',
-						'Practice',
 						'Custom Practice',
 						'Your Decks',
 						'View Profile',
