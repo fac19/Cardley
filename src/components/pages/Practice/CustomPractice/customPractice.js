@@ -87,7 +87,7 @@ export default function CustomPractice({
 		});
 		console.log('selectAll -> newSelectedDecks', newSelectedDecks);
 
-		setSelectedDecks(newSelectedDecks);
+		setSelectedDecks(() => newSelectedDecks);
 	};
 
 	return (

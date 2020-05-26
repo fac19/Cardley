@@ -19,6 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 
 import removeSpaces from '../../utils/remove-spaces';
+import authorised from '../../utils/authoriseUser/authorised';
 
 const drawerWidth = 240;
 
@@ -88,6 +89,10 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 		localStorage.removeItem('auth');
 		handleDrawerClose();
 		history.push('/landing');
+	};
+
+	const loginHandler = () => {
+		history.push('/login');
 	};
 
 	return (
@@ -160,11 +165,20 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				</List>
 				<Divider />
 				<List>
-					{['Log out'].map((text) => (
+					{authorised() ? (
+						<ListItem onClick={logoutHandler} button key="log out">
+							<ListItemText primary="Log out" />
+						</ListItem>
+					) : (
+						<ListItem onClick={loginHandler} button key="Log in">
+							<ListItemText primary="Log in" />
+						</ListItem>
+					)}
+					{/* {['Log out'].map((text) => (
 						<ListItem onClick={logoutHandler} button key={text}>
 							<ListItemText primary={text} />
 						</ListItem>
-					))}
+					))} */}
 				</List>
 			</Drawer>
 		</div>

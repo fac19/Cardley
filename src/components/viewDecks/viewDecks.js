@@ -52,7 +52,7 @@ export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 }
 
 function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
-	// console.log('SelectableDeck -> selectedDecks', selectedDecks);
+	console.log('SelectableDeck -> selectedDecks', selectedDecks);
 	const checkCard = () => {
 		const newSelectedDates = {
 			...selectedDecks,
@@ -62,6 +62,7 @@ function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
 		// console.log(e.target.checked === true);
 		setSelectedDecks(newSelectedDates);
 	};
+	console.log('deck ', deck);
 	// console.log('in component, ', selectedDecks);
 	const classes = useStyles();
 	return (
