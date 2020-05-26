@@ -1,25 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import { useHistory } from 'react-router-dom';
-import getFetch from '../../../../utils/fetchData/get-fetch';
+import PropTypes from 'prop-types';
+// import getFetch from '../../../../utils/fetchData/get-fetch';
 
 import ViewDecks from '../../../viewDecks/viewDecks';
 
 const CustomPracticeDiv = styled.div``;
 
-function findSelectedDecks({ decks, setDecks, selectedDecks }) {
+function findSelectedDecks({
+	decks,
+	setDecks,
+	selectedDecks,
+	setMakingSelection,
+}) {
+	if (!selectedDecks) {
+		return;
+	}
 	const lookupTerms = [];
-	Object.entries(selectedDecks).map((deck) => {
-		console.log(deck);
+	Object.entries(selectedDecks).forEach((deck) => {
 		if (deck[1] === true) {
 			lookupTerms.push(deck[0]);
 		}
 	});
+
 	const subsetOfDecks = decks.filter((deck) => {
-		return lookupTerms.includes(deck.deck_id);
+		return lookupTerms.includes(String(deck.deck_id));
 	});
-	setDecks(subsetOfDecks);
+	setDecks(() => subsetOfDecks);
+	setMakingSelection(() => false);
 }
 
 export default function CustomPractice({
@@ -27,11 +36,8 @@ export default function CustomPractice({
 	setSelectedDecks,
 	decks,
 	setDecks,
+	setMakingSelection,
 }) {
-	const history = useHistory();
-
-	// console.log('CustomPractice -> setSelectedDecks', setSelectedDecks);
-	console.log('CustomPractice -> selectedDecks', selectedDecks);
 	return (
 		<>
 			<CustomPracticeDiv>
@@ -48,9 +54,15 @@ export default function CustomPractice({
 				color="default"
 				onClick={() => {
 					// update state
-					findSelectedDecks({ decks, setDecks, selectedDecks });
+					findSelectedDecks({
+						decks,
+						setDecks,
+						selectedDecks,
+						setMakingSelection,
+					});
+
 					// redirect to actual practice
-					history.push('/practice');
+					// history.push('/practice');
 				}}
 			>
 				Start Practice
@@ -58,3 +70,19 @@ export default function CustomPractice({
 		</>
 	);
 }
+
+CustomPractice.propTypes = {
+	selectedDecks: PropTypes.objectOf(PropTypes.string),
+	setSelectedDecks: PropTypes.func,
+	decks: PropTypes.arrayOf(PropTypes.object),
+	setDecks: PropTypes.func,
+	setMakingSelection: PropTypes.func,
+};
+
+CustomPractice.defaultProps = {
+	selectedDecks: {},
+	setSelectedDecks: () => {},
+	decks: [{}],
+	setDecks: () => {},
+	setMakingSelection: () => {},
+};

@@ -1,10 +1,12 @@
 import React from 'react';
 import getFetch from '../../../utils/fetchData/get-fetch';
 import CustomPractice from './CustomPractice/customPractice';
+import PracticeCard from './practiceCard/practiceCard';
 
 export default function Practice() {
 	const [selectedDecks, setSelectedDecks] = React.useState(null);
 	const [decks, setDecks] = React.useState(null);
+	const [makingSelection, setMakingSelection] = React.useState(true);
 
 	React.useEffect(() => {
 		const fetchObj = {
@@ -16,18 +18,25 @@ export default function Practice() {
 			setDecks(res);
 			setSelectedDecks(
 				res.reduce((returnObj, deck) => {
-					returnObj[deck.deck_id] = false;
-					return returnObj;
+					const newObj = { ...returnObj };
+					newObj[deck.deck_id] = false;
+					return newObj;
 				}, {}),
 			);
 		});
 	}, []);
-	return (
+
+	const thingToRender = makingSelection ? (
 		<CustomPractice
 			selectedDecks={selectedDecks}
 			setSelectedDecks={setSelectedDecks}
 			decks={decks}
-			setDecks={decks}
+			setDecks={setDecks}
+			setMakingSelection={setMakingSelection}
 		/>
+	) : (
+		<PracticeCard decksToPractice={decks} />
 	);
+
+	return thingToRender;
 }

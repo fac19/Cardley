@@ -7,7 +7,7 @@ import { PracticeDiv } from '../practice.styles';
 import OneSidedCard from '../../../cards/oneSidedCard';
 import TwoSidedCard from '../../../cards/twoSidedCard';
 
-export default function Practice({ decksToPractice }) {
+export default function PracticeCard({ decksToPractice }) {
 	// const classes = useStyles();
 	const [currentDeck, setCurrentDeck] = useState();
 	const [currentCard, setCurrentCard] = useState({
@@ -99,11 +99,11 @@ export default function Practice({ decksToPractice }) {
 	);
 }
 
-Practice.propTypes = {
+PracticeCard.propTypes = {
 	decksToPractice: PropTypes.arrayOf(PropTypes.object),
 };
 
-Practice.defaultProps = {
+PracticeCard.defaultProps = {
 	decksToPractice: [
 		{
 			deck_name: 'French Vocab',
