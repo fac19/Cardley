@@ -19,9 +19,11 @@ function findSelectedDecks({
 	decks,
 	setDecks,
 	selectedDecks,
-	setMakingSelection,
+	setPracticeStage,
 }) {
+	console.log('selectedDecks :', selectedDecks);
 	if (!selectedDecks) {
+		console.log('not selected decks');
 		return;
 	}
 	const lookupTerms = [];
@@ -35,7 +37,7 @@ function findSelectedDecks({
 		return lookupTerms.includes(String(deck.deck_id));
 	});
 	setDecks(() => subsetOfDecks);
-	setMakingSelection(() => false);
+	setPracticeStage(() => 'practice');
 }
 
 // const selectAllCheckboxes = () => {};
@@ -45,7 +47,7 @@ export default function CustomPractice({
 	setSelectedDecks,
 	decks,
 	setDecks,
-	setMakingSelection,
+	setPracticeStage,
 	timer,
 	setTimer,
 }) {
@@ -63,14 +65,12 @@ export default function CustomPractice({
 		setTimer(() => value);
 	};
 
-	const selectAll = () => {
+	const select = (trueOrFalse) => {
 		const deckIds = Object.keys(selectedDecks);
-		console.log('selected decks', selectedDecks);
 		const newSelectedDecks = {};
 		deckIds.forEach((deck) => {
-			newSelectedDecks[deck] = true;
+			newSelectedDecks[deck] = trueOrFalse;
 		});
-		console.log('selectAll -> newSelectedDecks', newSelectedDecks);
 
 		setSelectedDecks(newSelectedDecks);
 	};
@@ -102,13 +102,13 @@ export default function CustomPractice({
 					label="minutes"
 					variant="outlined"
 					value={timer}
+					onChange={(event, value) => setTimer(value)}
 				/>
 				<IconButton
 					color="primary"
 					aria-label="add one minut to timer"
 					component="span"
 					onClick={handleIncrement}
-					// onClick={handleIncrement}
 				>
 					<AddIcon />
 				</IconButton>
@@ -126,7 +126,7 @@ export default function CustomPractice({
 					color="primary"
 					variant="contained"
 					className={classes.cardButton}
-					onClick={selectAll}
+					onClick={() => select(true)}
 				>
 					Select All
 				</Button>
@@ -134,18 +134,19 @@ export default function CustomPractice({
 					color="primary"
 					variant="contained"
 					className={classes.cardButton}
-					onClick={() => {}}
+					onClick={() => select(false)}
 				>
 					Select None
 				</Button>
-				<Button
+				{/* <Button
 					color="primary"
 					variant="contained"
 					className={classes.cardButton}
 					onClick={() => {}}
+					disable
 				>
 					Show Important Cards Only
-				</Button>
+				</Button> */}
 				{/* </ButtonGroup> */}
 			</ButtonsDiv>
 			<CustomPracticeDiv>
@@ -162,11 +163,12 @@ export default function CustomPractice({
 				color="default"
 				onClick={() => {
 					// update state
+					// startTimerFunction()
 					findSelectedDecks({
 						decks,
 						setDecks,
 						selectedDecks,
-						setMakingSelection,
+						setPracticeStage,
 					});
 				}}
 			>
@@ -181,7 +183,7 @@ CustomPractice.propTypes = {
 	setSelectedDecks: PropTypes.func.isRequired,
 	decks: PropTypes.arrayOf(PropTypes.object).isRequired,
 	setDecks: PropTypes.func.isRequired,
-	setMakingSelection: PropTypes.func.isRequired,
+	setPracticeStage: PropTypes.func.isRequired,
 	timer: PropTypes.number,
 	setTimer: PropTypes.func.isRequired,
 };
