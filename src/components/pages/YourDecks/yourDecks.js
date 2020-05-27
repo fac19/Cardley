@@ -34,18 +34,13 @@ const useStyles = makeStyles((theme) => ({
 export default function MyDecks() {
 	const classes = useStyles();
 	const [decks, setDecks] = React.useState(null);
-	const [selectedDecks, setSelectedDecks] = React.useState({});
+	const [, setSelectedDecks] = React.useState({});
 	useYourDecks({ setDecks, setSelectedDecks });
 	const history = useHistory();
 
 	return (
 		<>
-			<ViewDecksLinks
-				selectedDecks={selectedDecks}
-				setSelectedDecks={setSelectedDecks}
-				decks={decks}
-				setDecks={setDecks}
-			/>
+			<ViewDecksLinks decks={decks} />
 
 			<Button
 				type="submit"
