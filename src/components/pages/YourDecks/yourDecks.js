@@ -1,8 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import ViewDecksLinks from './ViewDecksLinks';
+import ViewDecksLinks from './children/ViewDecksLinks';
 import useYourDecks from '../../../hooks/useYourDecks';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,44 +31,57 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	button: {
+		margin: '20px',
+	},
 }));
 
-export default function MyDecks() {
+const ButtonsDiv = styled.div`
+	display: flex;
+`;
+
+export default function MyDecks({ setViewingDeck }) {
 	const classes = useStyles();
+	const history = useHistory();
 	const [decks, setDecks] = React.useState(null);
 	const [, setSelectedDecks] = React.useState({});
 	useYourDecks({ setDecks, setSelectedDecks });
-	const history = useHistory();
 
 	return (
 		<>
-			<ViewDecksLinks decks={decks} />
+			<ViewDecksLinks decks={decks} setViewingDeck={setViewingDeck} />
 
-			<Button
-				type="submit"
-				fullWidth
-				variant="contained"
-				color="primary"
-				className={classes.submit}
-				onClick={() => {
-					history.push('/create-deck');
-				}}
-			>
-				Create Deck
-			</Button>
+			<ButtonsDiv>
+				<Button
+					type="submit"
+					fullWidth
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={() => {
+						history.push('/create-deck');
+					}}
+				>
+					Create Deck
+				</Button>
 
-			<Button
-				type="submit"
-				fullWidth
-				variant="contained"
-				color="primary"
-				className={classes.submit}
-				onClick={() => {
-					history.push('/public-decks');
-				}}
-			>
-				Public Decks
-			</Button>
+				<Button
+					type="submit"
+					fullWidth
+					variant="contained"
+					color="primary"
+					className={classes.button}
+					onClick={() => {
+						history.push('/public-decks');
+					}}
+				>
+					Public Decks
+				</Button>
+			</ButtonsDiv>
 		</>
 	);
 }
+
+MyDecks.propTypes = {
+	setViewingDeck: PropTypes.func.isRequired,
+};

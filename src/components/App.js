@@ -13,10 +13,13 @@ import UserMenu from './pages/Home/userMenu';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
 // import CustomPractice from './pages/Practice/CustomPractice/customPractice';
 import YourDecks from './pages/YourDecks/yourDecks';
+import PublicDecks from './pages/PublicDecks/publicDecks';
 import Practice from './pages/Practice/practice';
+import InDeckCards from './pages/InDeckCards/InDeckCards';
 
 function App() {
 	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
+	const [viewingDeck, setViewingDeck] = React.useState('outer state');
 
 	// setCurrentPage('test')
 	return (
@@ -54,14 +57,24 @@ function App() {
 					/> */}
 					<ProtectedRoute path="/practice" component={Practice} />
 					<ProtectedRoute
-						exact
 						path="/view-profile"
 						component={ViewProfile}
 					/>
 					<ProtectedRoute
-						exact
 						path="/your-decks"
-						component={YourDecks}
+						component={() => (
+							<YourDecks setViewingDeck={setViewingDeck} />
+						)}
+					/>
+					<ProtectedRoute
+						path="/public-decks"
+						component={PublicDecks}
+					/>
+					<ProtectedRoute
+						path="/cards-in-deck"
+						component={() => (
+							<InDeckCards viewingDeck={viewingDeck} />
+						)}
 					/>
 					<Route path="*" render={() => <Redirect to="/" />} />
 				</Switch>
