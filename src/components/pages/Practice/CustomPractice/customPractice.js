@@ -1,17 +1,18 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-// import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import FlashMessage from 'react-flash-message';
 import ViewDecks from '../../../viewDecks/viewDecks';
 import {
 	CustomPracticeDiv,
 	ButtonsDiv,
 	TimerDiv,
 	PracticePageText,
+	FlashMessageDiv,
 	useStyles,
 } from './customPractice-style';
 
@@ -20,10 +21,16 @@ function findSelectedDecks({
 	setDecks,
 	selectedDecks,
 	setPracticeStage,
+	setSelectionError,
 }) {
-	console.log('selectedDecks :', selectedDecks);
-	if (!selectedDecks) {
+	// is all object entries in selectedDecks is false, then no decks were selected.
+	if (Object.values(selectedDecks).every((val) => val === false)) {
 		console.log('not selected decks');
+		setSelectionError(true);
+
+		setTimeout(() => {
+			setSelectionError(false);
+		}, 6000);
 		return;
 	}
 	const lookupTerms = [];
@@ -40,8 +47,6 @@ function findSelectedDecks({
 	setPracticeStage(() => 'practice');
 }
 
-// const selectAllCheckboxes = () => {};
-
 export default function CustomPractice({
 	selectedDecks,
 	setSelectedDecks,
@@ -51,6 +56,8 @@ export default function CustomPractice({
 	timer,
 	setTimer,
 }) {
+	const [selectionError, setSelectionError] = React.useState(false);
+
 	const classes = useStyles();
 
 	const handleIncrement = () => {
@@ -81,13 +88,6 @@ export default function CustomPractice({
 				How long would you like to practice?
 			</PracticePageText>
 			<TimerDiv>
-				{/* <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        startIcon={<RemoveIcon />}
-      /> */}
-
 				<IconButton
 					color="primary"
 					aria-label="remove one minute from timer"
@@ -118,10 +118,6 @@ export default function CustomPractice({
 				Which decks would you like to practice?
 			</PracticePageText>
 			<ButtonsDiv>
-				{/* <ButtonGroup
-					color="primary"
-					aria-label="outlined primary button group"
-				> */}
 				<Button
 					color="primary"
 					variant="contained"
@@ -157,6 +153,15 @@ export default function CustomPractice({
 					setDecks={setDecks}
 				/>
 			</CustomPracticeDiv>
+			<FlashMessageDiv>
+				{selectionError && (
+					<FlashMessage duration={5000}>
+						<span className={classes.flashMessage}>
+							Please select decks to pratice
+						</span>
+					</FlashMessage>
+				)}
+			</FlashMessageDiv>
 			<Button
 				// className={classes.cardButton}
 				variant="contained"
@@ -169,6 +174,7 @@ export default function CustomPractice({
 						setDecks,
 						selectedDecks,
 						setPracticeStage,
+						setSelectionError,
 					});
 				}}
 			>

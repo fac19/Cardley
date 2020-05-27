@@ -40,17 +40,23 @@ function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
 	};
 
 	const classes = useStyles();
+
+	const cardClasses = `${classes.card} ${checkbox && classes.checked}`;
 	return (
 		<FormControlLabel
 			control={
 				<Checkbox
+					className={classes.checkboxClass}
 					checked={selectedDecks[deck.deck_id] || false}
 					onClick={checkCard}
 					color="primary"
 				/>
 			}
 			label={
-				<Card className={classes.card}>
+				<Card
+					className={cardClasses}
+					style={{ backgroundColor: 'rgb(244,211,66)' }}
+				>
 					<CardContent>
 						<Typography>{deck.deck_name}</Typography>
 					</CardContent>
