@@ -5,8 +5,8 @@ import EditCard from '../../EditCard/EditCard';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
 export default function InDeckCards({ viewingDeck }) {
 	const [cards, setCards] = React.useState(null);
-	const [markup, setMarkup] = React.useState('');
-	console.log(setMarkup);
+	const [frontMarkup, setFrontMarkup] = React.useState('');
+	const [backMarkup, setBackMarkup] = React.useState('');
 
 	React.useEffect(() => {
 		fetchData('GET', `cards/deck/${viewingDeck}`).then((res) => {
@@ -23,7 +23,16 @@ export default function InDeckCards({ viewingDeck }) {
 				<form>
 					<h2>Add a new card:</h2>
 					<h3>Front:</h3>
-					<EditCard markup={markup} setMarkup={setMarkup} />
+					<EditCard
+						markup={frontMarkup}
+						setMarkup={setFrontMarkup}
+						key="hello"
+					/>
+					<EditCard
+						markup={backMarkup}
+						setMarkup={setBackMarkup}
+						key="goodbye"
+					/>
 				</form>
 			</div>
 		);
