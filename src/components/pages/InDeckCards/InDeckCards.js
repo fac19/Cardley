@@ -1,8 +1,10 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardViewer from './CardViewer';
 import EditCard from '../../EditCard/EditCard';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
+
 export default function InDeckCards({ viewingDeck }) {
 	const [cards, setCards] = React.useState(null);
 	const [frontMarkup, setFrontMarkup] = React.useState('');
@@ -28,11 +30,27 @@ export default function InDeckCards({ viewingDeck }) {
 						setMarkup={setFrontMarkup}
 						key="hello"
 					/>
+					<h3>Back:</h3>
 					<EditCard
 						markup={backMarkup}
 						setMarkup={setBackMarkup}
 						key="goodbye"
 					/>
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						color="primary"
+						// className={classes.button}
+						onClick={() => {
+							// send post request to server
+							// update deck state on front end
+							setFrontMarkup('');
+							setBackMarkup('');
+						}}
+					>
+						Add
+					</Button>
 				</form>
 			</div>
 		);
