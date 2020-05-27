@@ -1,34 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+// import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { makeStyles } from '@material-ui/core/styles';
-// import getFetch from '../../../../utils/fetchData/get-fetch';
-
 import ViewDecks from '../../../viewDecks/viewDecks';
-
-const CustomPracticeDiv = styled.div``;
-
-const ButtonsDiv = styled.div`
-	display: flex;
-`;
-
-const TimerDiv = styled.div`
-	display: flex;
-`;
-
-const PracticePageText = styled.p``;
-
-const useStyles = makeStyles(() => ({
-	timerInput: {
-		width: '8ch',
-	},
-}));
+import {
+	CustomPracticeDiv,
+	ButtonsDiv,
+	TimerDiv,
+	PracticePageText,
+	useStyles,
+} from './customPractice-style';
 
 function findSelectedDecks({
 	decks,
@@ -96,6 +81,13 @@ export default function CustomPractice({
 				How long would you like to practice?
 			</PracticePageText>
 			<TimerDiv>
+				{/* <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        startIcon={<RemoveIcon />}
+      /> */}
+
 				<IconButton
 					color="primary"
 					aria-label="remove one minute from timer"
@@ -126,29 +118,35 @@ export default function CustomPractice({
 				Which decks would you like to practice?
 			</PracticePageText>
 			<ButtonsDiv>
-				<ButtonGroup
+				{/* <ButtonGroup
 					color="primary"
 					aria-label="outlined primary button group"
+				> */}
+				<Button
+					color="primary"
+					variant="contained"
+					className={classes.cardButton}
+					onClick={selectAll}
 				>
-					<Button
-						// className={classes.cardButton}
-						onClick={selectAll}
-					>
-						Select All
-					</Button>
-					<Button
-						// className={classes.cardButton}
-						onClick={() => {}}
-					>
-						Select None
-					</Button>
-					<Button
-						// className={classes.cardButton}
-						onClick={() => {}}
-					>
-						Show Important Cards Only
-					</Button>
-				</ButtonGroup>
+					Select All
+				</Button>
+				<Button
+					color="primary"
+					variant="contained"
+					className={classes.cardButton}
+					onClick={() => {}}
+				>
+					Select None
+				</Button>
+				<Button
+					color="primary"
+					variant="contained"
+					className={classes.cardButton}
+					onClick={() => {}}
+				>
+					Show Important Cards Only
+				</Button>
+				{/* </ButtonGroup> */}
 			</ButtonsDiv>
 			<CustomPracticeDiv>
 				<ViewDecks
