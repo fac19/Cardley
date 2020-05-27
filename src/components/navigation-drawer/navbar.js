@@ -145,23 +145,27 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				</div>
 				<Divider />
 				<List>
-					{['Home', 'Practice', 'Your Decks', 'View Profile'].map(
-						(text) => (
-							<ListItem
-								onClick={() => {
-									handleDrawerClose();
+					{[
+						'Home',
+						'Practice',
+						'Your Decks',
+						'Public decks',
+						'View Profile',
+					].map((text) => (
+						<ListItem
+							onClick={() => {
+								handleDrawerClose();
 
-									setCurrentPage(() => text);
-								}}
-								button
-								component="a"
-								href={`/${removeSpaces(text)}`}
-								key={text}
-							>
-								<ListItemText primary={text} />
-							</ListItem>
-						),
-					)}
+								setCurrentPage(() => text);
+							}}
+							button
+							component="a"
+							href={`/${removeSpaces(text)}`}
+							key={text}
+						>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
 				</List>
 				<Divider />
 				<List>
