@@ -19,6 +19,11 @@ const PracticePageText = styled.p`
 	padding: 0.2rem;
 `;
 
+const FlashMessageDiv = styled.div`
+	height: 1rem;
+	margin: 0.5rem;
+`;
+
 const useStyles = makeStyles(() => ({
 	// button: {
 	// 	width: '3rem',
@@ -38,6 +43,16 @@ const useStyles = makeStyles(() => ({
 		fontSize: '0.7rem',
 		margin: '0.2rem',
 	},
+	flashMessage: {
+		color: 'red',
+	},
 }));
 
-export { CustomPracticeDiv, ButtonsDiv, TimerDiv, PracticePageText, useStyles };
+export {
+	CustomPracticeDiv,
+	ButtonsDiv,
+	TimerDiv,
+	PracticePageText,
+	FlashMessageDiv,
+	useStyles,
+};

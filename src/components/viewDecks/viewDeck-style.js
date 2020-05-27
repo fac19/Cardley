@@ -18,10 +18,20 @@ const useStyles = makeStyles({
 	pos: {
 		marginBottom: 12,
 	},
+	checkboxClass: {
+		paddingRight: '0.2rem',
+	},
 	card: {
 		width: '150px',
 		height: '75px',
 		margin: '1rem',
+		marginLeft: '0rem',
+	},
+	checked: {
+		opacity: '0.8',
+		width: '148px',
+		height: '73px',
+		border: '1px solid rgb(64,84,181)',
 	},
 });
 
