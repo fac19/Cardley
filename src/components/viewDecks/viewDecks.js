@@ -1,36 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
-
-const ViewDecksDiv = styled.div``;
-
-const useStyles = makeStyles({
-	root: {
-		width: 150,
-	},
-	bullet: {
-		display: 'inline-block',
-		margin: '0 2px',
-		transform: 'scale(0.8)',
-	},
-	title: {
-		fontSize: 14,
-	},
-	pos: {
-		marginBottom: 12,
-	},
-	card: {
-		width: '150px',
-		height: '75px',
-		margin: '1rem',
-	},
-});
+import { ViewDecksDiv, useStyles } from './viewDeck-style';
 
 export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 	return (
@@ -38,6 +13,7 @@ export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 			{decks ? (
 				decks.map((deck) => (
 					<SelectableDeck
+						decks={decks}
 						deck={deck}
 						selectedDecks={selectedDecks}
 						setSelectedDecks={setSelectedDecks}
@@ -52,28 +28,24 @@ export default function ViewDecks({ selectedDecks, setSelectedDecks, decks }) {
 }
 
 function SelectableDeck({ deck, selectedDecks, setSelectedDecks }) {
-	console.log('SelectableDeck -> selectedDecks', selectedDecks);
+	const [checkbox, setCheckbox] = React.useState(false);
+
 	const checkCard = () => {
 		const newSelectedDates = {
 			...selectedDecks,
 			[deck.deck_id]: !selectedDecks[deck.deck_id],
 		};
-
-		// console.log(e.target.checked === true);
+		setCheckbox(!checkbox);
 		setSelectedDecks(newSelectedDates);
 	};
-	console.log('deck ', deck);
-	// console.log('in component, ', selectedDecks);
-	console.log('selectedDecks id', selectedDecks[deck.deck_id]);
+
 	const classes = useStyles();
 	return (
 		<FormControlLabel
 			control={
 				<Checkbox
-					checked={selectedDecks[deck.deck_id]}
-					// checked={false}
+					checked={selectedDecks[deck.deck_id] || false}
 					onClick={checkCard}
-					// name="checkedB"
 					color="primary"
 				/>
 			}
