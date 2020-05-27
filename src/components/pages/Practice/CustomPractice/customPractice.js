@@ -21,22 +21,29 @@ function findSelectedDecks({
 	selectedDecks,
 	setPracticeStage,
 }) {
-	console.log('selectedDecks :', selectedDecks);
-	if (!selectedDecks) {
-		console.log('not selected decks');
-		return;
-	}
+	const trueOrFalseArr = []; // trueOrFalseArr is only used for error handling (i.e. for isADeckSelected below)
 	const lookupTerms = [];
 	Object.entries(selectedDecks).forEach((deck) => {
+		trueOrFalseArr.push(deck[1]);
 		if (deck[1] === true) {
 			lookupTerms.push(deck[0]);
 		}
-	});
+	}); // lookupTerms now contains a list of keys in selectedDecks for whick checked is "true"
+
+	// is it neccessary to get rid of eval() here/a better way to write this/parse a string to bool?
+	// as there is no user input, perhaps no security risk?
+	// eslint-disable-next-line no-eval
+	const isADeckSelected = eval(trueOrFalseArr.join(' || '));
+
+	if (!isADeckSelected) {
+		console.log(`error, please select a deck`); // instead, display error message on page.
+		return;
+	}
 
 	const subsetOfDecks = decks.filter((deck) => {
 		return lookupTerms.includes(String(deck.deck_id));
 	});
-	setDecks(() => subsetOfDecks);
+	setDecks(() => subsetOfDecks); // THIS needs to be unset once the practice session is over (as it is causing a bug)
 	setPracticeStage(() => 'practice');
 }
 
