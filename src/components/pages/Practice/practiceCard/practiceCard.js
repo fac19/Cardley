@@ -7,7 +7,11 @@ import { PracticeDiv } from '../practice.styles';
 import OneSidedCard from '../../../cards/oneSidedCard';
 import TwoSidedCard from '../../../cards/twoSidedCard';
 
-export default function PracticeCard({ decksToPractice }) {
+export default function PracticeCard({
+	decksToPractice,
+	setPracticeStage,
+	timer,
+}) {
 	// const classes = useStyles();
 	const [currentDeck, setCurrentDeck] = useState();
 	const [currentCard, setCurrentCard] = useState({
@@ -19,6 +23,13 @@ export default function PracticeCard({ decksToPractice }) {
 	const [sliderValue, setSliderValue] = useState(1);
 	const [cardCount, setCardCount] = useState(0);
 	const [isFlipped, setIsFlipped] = useState(false);
+
+	useEffect(() => {
+		const practiceTime = setTimeout(() => {
+			setPracticeStage('finishedPractice');
+		}, timer * 1000);
+		return () => clearTimeout(practiceTime);
+	}, []);
 
 	useEffect(() => {
 		setCurrentCard({ card: {} });
@@ -101,8 +112,13 @@ export default function PracticeCard({ decksToPractice }) {
 
 PracticeCard.propTypes = {
 	decksToPractice: PropTypes.arrayOf(PropTypes.object).isRequired,
+	setPracticeStage: PropTypes.func.isRequired,
+	timer: PropTypes.number,
 };
 
+PracticeCard.defaultProps = {
+	timer: 0,
+};
 // PracticeCard.defaultProps = {
 // 	decksToPractice: [
 // 		{
