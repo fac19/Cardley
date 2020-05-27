@@ -4,22 +4,22 @@ import 'react-quill/dist/quill.snow.css';
 import PropTypes from 'prop-types';
 
 // modules is an optional config object.
+const modules = {
+	toolbar: [
+		[{ header: [1, 2, false] }],
+		['bold', 'italic', 'underline', 'strike', 'blockquote'],
+		[
+			{ list: 'ordered' },
+			{ list: 'bullet' },
+			{ indent: '-1' },
+			{ indent: '+1' },
+		],
+		['link', 'image'],
+	],
+};
 
 export default function CardEditor({ markup, setMarkup, key }) {
-	const modules = {
-		toolbar: [
-			[{ header: [1, 2, false] }],
-			['bold', 'italic', 'underline', 'strike', 'blockquote'],
-			[
-				{ list: 'ordered' },
-				{ list: 'bullet' },
-				{ indent: '-1' },
-				{ indent: '+1' },
-			],
-			['link', 'image'],
-		],
-	};
-
+	console.log(markup);
 	return (
 		<ReactQuill
 			container={key}
