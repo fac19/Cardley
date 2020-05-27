@@ -11,7 +11,7 @@ import LoginPage from './pages/Login/login';
 import Landing from './pages/Home/landing';
 import UserMenu from './pages/Home/userMenu';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
-import CustomPractice from './pages/CustomPractice/customPractice';
+// import CustomPractice from './pages/Practice/CustomPractice/customPractice';
 import YourDecks from './pages/YourDecks/yourDecks';
 import Practice from './pages/Practice/practice';
 
@@ -34,27 +34,25 @@ function App() {
 					<Route exact path="/landing" component={Landing} />
 					<ProtectedRoute path="/home" component={UserMenu} />
 
-					<ProtectedRoute
-						path="/practice"
-						component={() => (
-							<Practice
-								deckToPractice={[
-									{
-										deck_name: 'French Vocab',
-										deck_id: 1,
-									},
-									{
-										deck_name: 'ES6 APIs',
-										deck_id: 2,
-									},
-								]}
-							/>
-						)}
-					/>
-					<ProtectedRoute
+					{/* <ProtectedRoute
 						path="/custom-practice"
-						component={CustomPractice}
-					/>
+						component={() => (
+							<CustomPractice />
+							// <Practice
+							// 	deckToPractice={[
+							// 		{
+							// 			deck_name: 'French Vocab',
+							// 			deck_id: 1,
+							// 		},
+							// 		{
+							// 			deck_name: 'ES6 APIs',
+							// 			deck_id: 2,
+							// 		},
+							// 	]}
+							// />
+						)}
+					/> */}
+					<ProtectedRoute path="/practice" component={Practice} />
 					<ProtectedRoute
 						exact
 						path="/view-profile"

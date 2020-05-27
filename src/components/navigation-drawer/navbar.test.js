@@ -8,7 +8,7 @@ test('navbar opens, then menu items appear', () => {
 	fireEvent.click(element);
 
 	screen.getAllByText('Home');
-	screen.getAllByText('Custom Practice');
+	screen.getAllByText('Your Decks');
 	screen.getAllByText('Practice');
 	screen.getAllByText('View Profile');
 });

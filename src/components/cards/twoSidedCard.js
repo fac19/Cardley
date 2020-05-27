@@ -1,67 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ReactCardFlip from 'react-card-flip';
 import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/core/Slider';
-
-// import Tooltip from '@material-ui/core/Tooltip';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: 300,
-		height: 300,
-	},
-	margin: {
-		height: theme.spacing(3),
-	},
-	slider: {
-		width: 275,
-		height: 300,
-	},
-	title: {
-		fontSize: 14,
-	},
-	pos: {
-		marginBottom: 12,
-	},
-	cardButton: {
-		width: '80%',
-	},
-}));
-
-const PrettoSlider = withStyles({
-	root: {
-		color: '#52af77',
-		height: 8,
-	},
-	thumb: {
-		'height': 24,
-		'width': 24,
-		'backgroundColor': '#fff',
-		'border': '2px solid currentColor',
-		'marginTop': -8,
-		'marginLeft': -12,
-		'&:focus, &:hover, &$active': {
-			boxShadow: 'inherit',
-		},
-	},
-	active: {},
-	valueLabel: {
-		left: 'calc(-50% + 4px)',
-	},
-	track: {
-		height: 8,
-		borderRadius: 4,
-	},
-	rail: {
-		height: 8,
-		borderRadius: 4,
-	},
-})(Slider);
+import { useStyles, PrettoSlider } from './cards-styles';
 
 export default function TwoSidedCard({
 	currentCard,
@@ -75,6 +19,7 @@ export default function TwoSidedCard({
 	const classes = useStyles();
 	// const { children, open, value } = props;
 	// const [isFlipped, setIsFlipped] = useState(false);
+	const [sliderColor, setSliderColor] = useState('rgb(64,84,181)');
 
 	const marks = [
 		// We need to clarify where /place places cards back
@@ -91,12 +36,18 @@ export default function TwoSidedCard({
 
 	const handleInputChange = (event, value) => {
 		setSliderValue(value);
+
+		if (value > currentCard.deck_length / 2) setSliderColor('green');
+		else setSliderColor('red');
 	};
 
 	return (
 		<>
 			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-				<Card className={classes.root}>
+				<Card
+					className={classes.root}
+					style={{ backgroundColor: currentCard.card.color }}
+				>
 					<CardContent>
 						<Typography
 							className={classes.title}
@@ -114,8 +65,7 @@ export default function TwoSidedCard({
 
 				<Card
 					className={classes.root}
-					variant="outlined"
-					// style={{ backgroundColor: cardColor }}
+					style={{ backgroundColor: currentCard.card.color }}
 				>
 					<CardContent>
 						<Typography
@@ -146,6 +96,7 @@ export default function TwoSidedCard({
 			{isFlipped && (
 				<>
 					<PrettoSlider
+						style={{ color: sliderColor }}
 						valueLabelDisplay="auto"
 						aria-label="pretto slider"
 						value={sliderValue}
@@ -157,7 +108,7 @@ export default function TwoSidedCard({
 					<Button
 						className={classes.cardButton}
 						variant="contained"
-						color="primary"
+						color="default"
 						onClick={() => {
 							nextCardHandler();
 						}}
@@ -190,7 +141,7 @@ TwoSidedCard.defaultProps = {
 		deck_length: 1,
 		card: {},
 	},
-	setSliderValue: 1,
+	setSliderValue: () => {},
 	sliderValue: 1,
 	currentDeck: {},
 	nextCardHandler: (a) => a,
