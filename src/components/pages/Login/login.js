@@ -11,12 +11,19 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import FlashMessage from 'react-flash-message';
 
 import { useHistory } from 'react-router-dom';
 import login from '../../../utils/authoriseUser/login';
 
 // this is for styled-components styling
 const LoginPageDiv = styled.div``;
+
+const FlashMessageDiv = styled.div`
+	height: 1rem;
+	margin: 0.5rem;
+	color: red;
+`;
 
 // this is for material UI styling
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginPage() {
+	const [selectionErr, setSelectionErr] = React.useState(false);
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -57,7 +65,14 @@ export default function LoginPage() {
 		login({
 			email: formData.get('email'),
 			password: formData.get('password'),
-		}).then(() => history.push('/practice'));
+		})
+			.then(() => history.push('/home'))
+			.catch(() => {
+				setSelectionErr(true);
+				setTimeout(() => {
+					setSelectionErr(false);
+				}, 4000);
+			});
 		// should actually be second last page - accessible by same api
 	};
 
@@ -74,7 +89,6 @@ export default function LoginPage() {
 						noValidate
 						onSubmit={submitHandler}
 					>
-						+{' '}
 						<TextField
 							variant="outlined"
 							margin="normal"
@@ -103,6 +117,15 @@ export default function LoginPage() {
 							}
 							label="Remember me"
 						/>
+						<FlashMessageDiv>
+							{selectionErr && (
+								<FlashMessage duration={4000}>
+									<span className={classes.flashMessage}>
+										Your login details were incorrect
+									</span>
+								</FlashMessage>
+							)}
+						</FlashMessageDiv>
 						<Button
 							type="submit"
 							fullWidth
