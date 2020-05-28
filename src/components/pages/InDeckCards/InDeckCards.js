@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 // import AddANewCard from './AddANewCard';
+import PropTypes from 'prop-types';
 import { useStyles, EditCardsWrapper } from './InDeckCards-style';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
-
 import useDeckCards from '../../../hooks/useDeckCards';
 import BackButton from '../../BackButton/BackButon';
 import CardViewer from './CardViewer';
@@ -48,11 +48,10 @@ export default function InDeckCards({ viewingDeck }) {
 						setUserActivity('adding');
 					}}
 				>
-					Public Decks
+					Add new
 				</Button>
 				<BackButton to="your-decks" />
 				{cards.map((card) => {
-					console.log(card);
 					return (
 						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 						<div
@@ -79,6 +78,11 @@ export default function InDeckCards({ viewingDeck }) {
 		);
 	}
 	if (userActivity === 'adding') {
-		return <AddANewCard />;
+		return <AddANewCard viewingDeck={viewingDeck} />;
 	}
 }
+
+InDeckCards.propTypes = {
+	viewingDeck: PropTypes.number.isRequired,
+	setViewingDeck: PropTypes.func.isRequired,
+};

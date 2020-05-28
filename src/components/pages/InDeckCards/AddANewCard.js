@@ -1,21 +1,48 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import EditCard from '../../cards/CardEditor';
 import { useStyles, FormElem } from './InDeckCards-style';
-// import fetchData from '../../../utils/fetchData/fetchData'
+import fetchData from '../../../utils/fetchData/fetchData';
 
-export default function AddANewCard(/* viewingDeck */) {
+export default function AddANewCard({ viewingDeck }) {
+	// console.log('viewing deck is :', viewingDeck)
 	const [frontMarkup, setFrontMarkup] = React.useState('');
 	const [backMarkup, setBackMarkup] = React.useState('');
+	const [submissionData, setSubmissionData] = React.useState(false);
 	const classes = useStyles();
+	const history = useHistory();
 
-	// function saveNewCard() {
-	//     fetchData('GET', `cards/deck/${viewingDeck}`,
-	//     { front_text: frontMarkup, front_image: undefined, back_text: backMarkup, back_image: undefined, important: false, color: 'rgb(174,232,143)' })
-	//     .then((res) => {
-	// 		console.log('card created', res);
-	// 	});
-	// }
+	React.useEffect(() => {
+		if (!submissionData) return;
+
+		// eslint-disable-next-line no-shadow
+		const [viewingDeck, frontMarkup, backMarkup] = submissionData;
+
+		const payload = {
+			front_text: frontMarkup,
+			front_image: '',
+			back_text: backMarkup,
+			back_image: '',
+			important: false,
+			color: 'rgb(174,232,143)',
+		};
+		// eslint-disable-next-line no-console
+		console.log('OUR URL IS:', `cards/${viewingDeck}`);
+		fetchData('POST', `cards/${viewingDeck}`, {
+			body: payload,
+		})
+			.then(() => {
+				history.push(`/your-decks`);
+			})
+			.catch((err) => {
+				// eslint-disable-next-line no-console
+				console.log('error', err);
+			});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [submissionData]);
 
 	return (
 		<FormElem>
@@ -33,7 +60,7 @@ export default function AddANewCard(/* viewingDeck */) {
 				key="goodbye"
 			/>
 			<Button
-				type="submit"
+				// type="submit"
 				className={classes.button}
 				variant="contained"
 				color="primary"
@@ -41,8 +68,11 @@ export default function AddANewCard(/* viewingDeck */) {
 				onClick={() => {
 					// send post request to server
 					// update deck state on front end
-					setFrontMarkup('');
-					setBackMarkup('');
+					// event.preventDefault();
+					setFrontMarkup(frontMarkup);
+					setBackMarkup(backMarkup);
+
+					setSubmissionData([viewingDeck, frontMarkup, backMarkup]);
 				}}
 			>
 				Add
@@ -50,3 +80,7 @@ export default function AddANewCard(/* viewingDeck */) {
 		</FormElem>
 	);
 }
+
+AddANewCard.propTypes = {
+	viewingDeck: PropTypes.number.isRequired,
+};
