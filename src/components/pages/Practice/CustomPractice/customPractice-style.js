@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const CustomPracticeDiv = styled.div`
 	min-height: 40vh;
+	width: 100%;
 `;
 
 const ButtonsDiv = styled.div`
@@ -15,8 +16,10 @@ const TimerDiv = styled.div`
 `;
 
 const PracticePageText = styled.p`
-	font-size: 1.1rem;
+	font-size: 1rem;
+	text-align:
 	padding: 0.2rem;
+	back
 `;
 
 const FlashMessageDiv = styled.div`
@@ -24,14 +27,14 @@ const FlashMessageDiv = styled.div`
 	margin: 0.5rem;
 `;
 
-const useStyles = makeStyles(() => ({
-	// button: {
-	// 	width: '3rem',
-	// 	'& span': {
-	// 		display: 'flex',
-	// 		justifyContent: 'center'
-	// 	},
-	// },
+const useStyles = makeStyles((theme) => ({
+	startButton: {
+		position: 'fixed',
+		bottom: '10px',
+		[theme.breakpoints.up('md')]: {
+			bottom: '100px',
+		},
+	},
 	timerInput: {
 		'width': '8ch',
 		'& input': {

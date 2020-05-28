@@ -1,44 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import ViewDecksLinks from './children/ViewDecksLinks';
 import useYourDecks from '../../../hooks/useYourDecks';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > *': {
-			margin: theme.spacing(1),
-			width: '25ch',
-		},
-	},
-	paper: {
-		marginTop: theme.spacing(8),
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
-	},
-	form: {
-		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(1),
-	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-	button: {
-		margin: '20px',
-	},
-}));
-
-const ButtonsDiv = styled.div`
-	display: flex;
-`;
+import { useStyles, ButtonsDiv, YourDecksHeader } from './yourDecks-style';
 
 export default function MyDecks({ setViewingDeck }) {
 	const classes = useStyles();
@@ -49,6 +15,7 @@ export default function MyDecks({ setViewingDeck }) {
 
 	return (
 		<>
+			<YourDecksHeader>Select deck you wish to Edit </YourDecksHeader>
 			<ViewDecksLinks decks={decks} setViewingDeck={setViewingDeck} />
 
 			<ButtonsDiv>

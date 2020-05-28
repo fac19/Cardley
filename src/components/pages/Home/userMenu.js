@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+// import logo from '../../../../public/flash.png' // relative path to image
 // import clsx from 'clsx';
 
 // import Link from '@material-ui/core/Link';
@@ -42,7 +43,7 @@ export default function userMenu() {
 	return (
 		<UserMenuDiv>
 			home
-			<LogoContainer>Logo here</LogoContainer>
+			<LogoContainer>logo here</LogoContainer>
 			<Button
 				// className={clsx(classes.root)}
 				component={Link}
