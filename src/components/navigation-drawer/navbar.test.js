@@ -7,10 +7,8 @@ test('navbar opens, then menu items appear', () => {
 	const element = screen.getByTestId('hamburger');
 	fireEvent.click(element);
 
-	screen.getAllByText('Home');
-	screen.getAllByText('Your Decks');
-	screen.getAllByText('Practice');
-	screen.getAllByText('View Profile');
+	screen.getAllByText('Log in');
+	screen.getAllByText('Sign up');
 });
 
 // test('navbar header corresponds to clicked page', () => {
