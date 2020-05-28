@@ -1,7 +1,20 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
+import Card from '@material-ui/core/Card';
 import 'react-quill/dist/quill.snow.css';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+	root: {
+		width: 300,
+		height: 200,
+	},
+	quill: {
+		height: '100%',
+		backgroundColor: 'rgb(240,107,37)',
+	},
+}));
 
 // modules is an optional config object.
 const modules = {
@@ -19,15 +32,23 @@ const modules = {
 };
 
 export default function CardEditor({ markup, setMarkup, key }) {
+	const classes = useStyles();
 	console.log(markup);
 	return (
-		<ReactQuill
-			container={key}
-			theme="snow"
-			value={markup}
-			onChange={setMarkup}
-			modules={modules}
-		/>
+		<Card
+			className={classes.root}
+			// style={{ backgroundColor: 'rgb(240,107,37)' }}
+		>
+			<ReactQuill
+				className={classes.quill}
+				container={key}
+				theme="snow"
+				value={markup}
+				onChange={setMarkup}
+				modules={modules}
+				// style={{ backgroundColor: 'black' }}
+			/>
+		</Card>
 	);
 }
 

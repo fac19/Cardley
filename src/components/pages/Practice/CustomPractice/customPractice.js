@@ -163,7 +163,7 @@ export default function CustomPractice({
 				)}
 			</FlashMessageDiv>
 			<Button
-				// className={classes.cardButton}
+				className={classes.startButton}
 				variant="contained"
 				color="default"
 				onClick={() => {
