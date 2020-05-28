@@ -55,11 +55,11 @@ export default function userMenu() {
 			</Button>
 			<Button
 				component={Link}
-				to="/manage-decks"
+				to="/your-decks"
 				variant="contained"
 				color="primary"
 			>
-				Manage Decks
+				Your Decks
 			</Button>
 		</UserMenuDiv>
 	);

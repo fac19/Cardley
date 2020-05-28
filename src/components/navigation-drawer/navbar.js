@@ -88,7 +88,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 	const logoutHandler = () => {
 		localStorage.removeItem('auth');
 		handleDrawerClose();
-		history.push('/landing');
+		history.push('/');
 	};
 
 	const loginHandler = () => {
@@ -160,7 +160,9 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 							}}
 							button
 							component="a"
-							href={`/${removeSpaces(text)}`}
+							href={
+								text === 'Home' ? `/` : `/${removeSpaces(text)}`
+							}
 							key={text}
 						>
 							<ListItemText primary={text} />
@@ -170,7 +172,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 				<Divider />
 				<List>
 					{authorised() ? (
-						<ListItem onClick={logoutHandler} button key="log out">
+						<ListItem onClick={logoutHandler} button key="Log out">
 							<ListItemText primary="Log out" />
 						</ListItem>
 					) : (

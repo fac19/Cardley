@@ -16,6 +16,14 @@ import YourDecks from './pages/YourDecks/yourDecks';
 import PublicDecks from './pages/PublicDecks/publicDecks';
 import Practice from './pages/Practice/practice';
 import InDeckCards from './pages/InDeckCards/InDeckCards';
+import authorized from '../utils/authoriseUser/authorised';
+
+function homeOrLanding() {
+	if (authorized()) {
+		return <ProtectedRoute path="/" component={UserMenu} />;
+	}
+	return <Route exact path="/" component={Landing} />;
+}
 
 function App() {
 	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
@@ -34,8 +42,7 @@ function App() {
 				<Switch>
 					<Route exact path="/signup" component={SignupPage} />
 					<Route exact path="/login" component={LoginPage} />
-					<Route exact path="/landing" component={Landing} />
-					<ProtectedRoute path="/home" component={UserMenu} />
+					{homeOrLanding()}
 
 					{/* <ProtectedRoute
 						path="/custom-practice"
