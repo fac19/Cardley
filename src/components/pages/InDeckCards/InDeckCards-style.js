@@ -9,12 +9,12 @@ const FormElem = styled.form`
 `;
 
 const EditCardsWrapper = styled.div`
-	margin-top: 50pxx @media (max-width: 600px) {
+	margin-top: 50pxx @media (min-width: 600px) {
 		margin-top: 200px;
 	}
 `;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	root: {
 		width: 300,
 		height: 300,
@@ -23,6 +23,13 @@ const useStyles = makeStyles(() => ({
 		width: '80%',
 		maxWidth: 300,
 		marginTop: '3rem',
+	},
+	startButton: {
+		position: 'fixed',
+		bottom: '10px',
+		[theme.breakpoints.up('md')]: {
+			bottom: '100px',
+		},
 	},
 }));
 

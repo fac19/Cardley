@@ -1,65 +1,84 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import fetchData from '../../../utils/fetchData/fetchData';
-import CardViewer from './CardViewer';
-import EditCard from '../../EditCard/EditCard';
-import { useStyles, FormElem, EditCardsWrapper } from './InDeckCards-style';
+// import AddANewCard from './AddANewCard';
+import { useStyles, EditCardsWrapper } from './InDeckCards-style';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
 
+import useDeckCards from '../../../hooks/useDeckCards';
 import BackButton from '../../BackButton/BackButon';
+import CardViewer from './CardViewer';
+import EditACard from './EditACard';
+import AddANewCard from './AddANewCard';
 
 export default function InDeckCards({ viewingDeck }) {
 	const [cards, setCards] = React.useState(null);
-	const [frontMarkup, setFrontMarkup] = React.useState('');
-	const [backMarkup, setBackMarkup] = React.useState('');
+	const [editingCard, setEditingCard] = React.useState(null);
+	const [errorState, setErrorState] = React.useState(false);
+	const [userActivity, setUserActivity] = React.useState('browsing');
 
 	React.useEffect(() => {
-		fetchData('GET', `cards/deck/${viewingDeck}`).then((res) => {
-			setCards(res);
-		});
-	}, [viewingDeck]);
+		setUserActivity('browsing');
+	}, []);
+
+	useDeckCards({ setCards, viewingDeck, setErrorState }); // useEffect wrapper
+
+	const goToEdit = (card) => {
+		setEditingCard(() => card);
+		setUserActivity(() => 'editing');
+	};
 
 	const classes = useStyles();
 
-	if (cards) {
+	if (errorState) {
+		return errorState;
+	}
+	if (!cards) {
+		return 'Loading...';
+	}
+	if (userActivity === 'browsing') {
 		return (
 			<EditCardsWrapper>
+				<Button
+					type="submit"
+					fullWidth
+					variant="contained"
+					className={classes.startButton}
+					color="primary"
+					onClick={() => {
+						setUserActivity('adding');
+					}}
+				>
+					Public Decks
+				</Button>
 				<BackButton to="your-decks" />
 				{cards.map((card) => {
-					return <CardViewer card={card} />;
+					console.log(card);
+					return (
+						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+						<div
+							onClick={() => goToEdit(card)}
+							onKeyPress={(e) =>
+								e.keyCode === 13 && goToEdit(card)
+							}
+						>
+							<CardViewer card={card} />;
+						</div>
+					);
 				})}
-				<FormElem>
-					<h2>Add a new card:</h2>
-					<h3>Front:</h3>
-					<EditCard
-						markup={frontMarkup}
-						setMarkup={setFrontMarkup}
-						key="hello"
-					/>
-					<h3>Back:</h3>
-					<EditCard
-						markup={backMarkup}
-						setMarkup={setBackMarkup}
-						key="goodbye"
-					/>
-					<Button
-						type="submit"
-						className={classes.button}
-						variant="contained"
-						color="primary"
-						// className={classes.button}
-						onClick={() => {
-							// send post request to server
-							// update deck state on front end
-							setFrontMarkup('');
-							setBackMarkup('');
-						}}
-					>
-						Add
-					</Button>
-				</FormElem>
 			</EditCardsWrapper>
 		);
 	}
-	return 'Loading...';
+	if (userActivity === 'editing') {
+		return (
+			<EditACard
+				setUserActivity={setUserActivity}
+				editingCard={editingCard}
+				setCards={setCards}
+				viewingDeck={viewingDeck}
+			/>
+		);
+	}
+	if (userActivity === 'adding') {
+		return <AddANewCard />;
+	}
 }

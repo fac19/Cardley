@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 const modules = {
 	toolbar: [
 		[{ header: [1, 2, false] }],
-		['bold', 'italic', 'underline', 'strike', 'blockquote'],
+		['bold', 'italic', 'underline', 'blockquote'],
 		[
 			{ list: 'ordered' },
 			{ list: 'bullet' },
@@ -33,7 +33,6 @@ const modules = {
 
 export default function CardEditor({ markup, setMarkup, key }) {
 	const classes = useStyles();
-	console.log(markup);
 	return (
 		<Card
 			className={classes.root}

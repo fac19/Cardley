@@ -8,7 +8,6 @@ import { useStyles } from './cards-styles';
 const HtmlToReactParser = require('html-to-react').Parser;
 
 const htmlToReactParser = new HtmlToReactParser();
-
 export default function CardFace({ deckname, content, color }) {
 	const contentJSX = htmlToReactParser.parse(content);
 	const classes = useStyles();
@@ -35,7 +34,13 @@ export default function CardFace({ deckname, content, color }) {
 // Question: do we want to hand down class as a prop as we are doing now?
 
 CardFace.propTypes = {
-	deckname: PropTypes.string.isRequired,
-	content: PropTypes.string.isRequired,
-	color: PropTypes.string.isRequired,
+	deckname: PropTypes.string,
+	content: PropTypes.string,
+	color: PropTypes.string,
+};
+
+CardFace.defaultProps = {
+	deckname: 'mydeck',
+	content: 'some content',
+	color: '#fff',
 };
