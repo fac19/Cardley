@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardViewer from './CardViewer';
 import EditCard from '../../EditCard/EditCard';
+import { useStyles, FormElem } from './InDeckCards-style';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
 
 import BackButton from '../../BackButton/BackButon';
@@ -18,6 +19,8 @@ export default function InDeckCards({ viewingDeck }) {
 		});
 	}, [viewingDeck]);
 
+	const classes = useStyles();
+
 	if (cards) {
 		return (
 			<div>
@@ -25,7 +28,7 @@ export default function InDeckCards({ viewingDeck }) {
 				{cards.map((card) => {
 					return <CardViewer card={card} />;
 				})}
-				<form>
+				<FormElem>
 					<h2>Add a new card:</h2>
 					<h3>Front:</h3>
 					<EditCard
@@ -41,7 +44,7 @@ export default function InDeckCards({ viewingDeck }) {
 					/>
 					<Button
 						type="submit"
-						fullWidth
+						className={classes.button}
 						variant="contained"
 						color="primary"
 						// className={classes.button}
@@ -54,7 +57,7 @@ export default function InDeckCards({ viewingDeck }) {
 					>
 						Add
 					</Button>
-				</form>
+				</FormElem>
 			</div>
 		);
 	}

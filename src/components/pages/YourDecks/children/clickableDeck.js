@@ -11,6 +11,7 @@ export default function ClickableDeck({ deck, setViewingDeck }) {
 	const history = useHistory();
 	return (
 		<Card
+			style={{ backgroundColor: 'rgb(252,193,6)' }}
 			className={classes.card}
 			onClick={() => {
 				setViewingDeck(deck.deck_id);
