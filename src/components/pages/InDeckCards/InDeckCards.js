@@ -5,6 +5,8 @@ import CardViewer from './CardViewer';
 import EditCard from '../../EditCard/EditCard';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
 
+import BackButton from '../../BackButton/BackButon';
+
 export default function InDeckCards({ viewingDeck }) {
 	const [cards, setCards] = React.useState(null);
 	const [frontMarkup, setFrontMarkup] = React.useState('');
@@ -19,6 +21,7 @@ export default function InDeckCards({ viewingDeck }) {
 	if (cards) {
 		return (
 			<div>
+				<BackButton to="your-decks" />
 				{cards.map((card) => {
 					return <CardViewer card={card} />;
 				})}
