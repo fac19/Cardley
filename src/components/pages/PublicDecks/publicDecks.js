@@ -50,7 +50,7 @@ export default function PublicDecks() {
 
 	useEffect(() => {
 		// async function
-		async function doStuff() {
+		async function getDataAndSetState() {
 			const privDecks = await fetchData('GET', `decks`);
 			const usrsDecks = privDecks.map((d) => d.deck_id);
 			const pubDecks = await fetchData('GET', `public-decks`);
@@ -64,19 +64,18 @@ export default function PublicDecks() {
 			setPublicDeckIds(pubDeckIds);
 			setSelectedDecks(selDecks);
 		}
-		doStuff();
+		getDataAndSetState();
 	}, []);
 
 	useEffect(() => {
 		if (saveChanges.length > 1) {
-			async function doStuff() {
-				console.log('Save changes to API');
+			function handleErrors() {
+				// eslint-disable-next-line no-console
+				console.log('API problem');
+			}
+
+			async function addAndRemoveCardsFromBackend() {
 				const [toAdd, toDel] = saveChanges;
-				console.log(toAdd.length, 'decks to add to users collection');
-				console.log(
-					toDel.length,
-					'decks to remove from the users collection',
-				);
 
 				// Run the API queries for each addition / deletion
 				// API could be improved so that these calls could
@@ -84,10 +83,9 @@ export default function PublicDecks() {
 				// per insertion / deletion.
 
 				toAdd.forEach(async (deck) => {
-					await fetchData(
-						'POST',
-						`decks/add-public/${deck}`,
-					).catch(() => console.log('Could not add card'));
+					await fetchData('POST', `decks/add-public/${deck}`).catch(
+						() => handleErrors,
+					);
 				});
 
 				if (toDel.length > 0) {
@@ -97,14 +95,17 @@ export default function PublicDecks() {
 					// decks personal ordering.
 				}
 				toDel.forEach(async (deck) => {
-					await fetchData('DELETE', `decks/remove-public/${deck}`);
+					await fetchData(
+						'DELETE',
+						`decks/remove-public/${deck}`,
+					).catch(() => handleErrors);
 				});
 			}
-			doStuff();
+			addAndRemoveCardsFromBackend();
 			// React go back
-			history.pop();
-			//     history.push('/create-deck');
+			history.push('/your-decks');
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [saveChanges]);
 
 	return (
