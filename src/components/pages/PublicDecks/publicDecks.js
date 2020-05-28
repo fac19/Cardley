@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
@@ -42,45 +43,77 @@ export default function PublicDecks() {
 	const classes = useStyles();
 	const history = useHistory();
 	const [publicDecks, setPublicDecks] = React.useState([]);
+	const [publicDeckIds, setPublicDeckIds] = React.useState([]);
 	const [selectedDecks, setSelectedDecks] = React.useState([]);
 	const [usersDecks, setUsersDecks] = React.useState([]);
-	/* We need to know which decks the user currently has in their collection so we can set the right values in selectedDecks and thereby tick the right boxes in ViewDecks. We load this data elsewhere. Where? App? */
+	const [saveChanges, setSaveChanges] = React.useState([]);
 
 	useEffect(() => {
 		// async function
-		async function getStuff() {
+		async function doStuff() {
 			const privDecks = await fetchData('GET', `decks`);
-			setUsersDecks(privDecks.map((d) => d.deck_id));
+			const usrsDecks = privDecks.map((d) => d.deck_id);
 			const pubDecks = await fetchData('GET', `public-decks`);
+			const pubDeckIds = pubDecks.map((d) => d.deck_id);
+			const selDecks = {};
+			pubDecks.forEach((deck) => {
+				selDecks[deck.deck_id] = usrsDecks.includes(deck.deck_id);
+			});
+			setUsersDecks(usrsDecks);
 			setPublicDecks(pubDecks);
-			// console.log("PUBLIC DECK LIST:", pubDecks);
-			// console.log("PERSONAL DECK LIST:", privDecks);
+			setPublicDeckIds(pubDeckIds);
+			setSelectedDecks(selDecks);
 		}
-		getStuff();
+		doStuff();
 	}, []);
 
 	useEffect(() => {
-		const selDecks = {};
-		publicDecks.forEach((deck) => {
-			selDecks[deck.deck_id] = true;
-		});
-		setSelectedDecks(selDecks);
-	}, [publicDecks]);
-	/*
-{
-	1: false,
-	2: true
-}
+		if (saveChanges.length > 1) {
+			async function doStuff() {
+				console.log('Save changes to API');
+				const [toAdd, toDel] = saveChanges;
+				console.log(toAdd.length, 'decks to add to users collection');
+				console.log(
+					toDel.length,
+					'decks to remove from the users collection',
+				);
 
-*/
+				// Run the API queries for each addition / deletion
+				// API could be improved so that these calls could
+				// be batched together instead of making one call
+				// per insertion / deletion.
+
+				toAdd.forEach(async (deck) => {
+					await fetchData(
+						'POST',
+						`decks/add-public/${deck}`,
+					).catch(() => console.log('Could not add card'));
+				});
+
+				if (toDel.length > 0) {
+					// Might be nice to have some sort of modal confirm
+					// dialog here as, although the user can re-add the
+					// deck at any time, they are about to delete their
+					// decks personal ordering.
+				}
+				toDel.forEach(async (deck) => {
+					await fetchData('DELETE', `decks/remove-public/${deck}`);
+				});
+			}
+			doStuff();
+			// React go back
+			history.pop();
+			//     history.push('/create-deck');
+		}
+	}, [saveChanges]);
 
 	return (
 		<PublicDecksDiv>
-			Public decks list...
-			<pre>PUBLIC DECKS: {JSON.stringify(publicDecks)}</pre>
-			<br />
-			<pre>USERS DECKS: {JSON.stringify(usersDecks)}</pre>
-			<br />
+			<span>
+				Add or remove these publicly shared decks from your
+				collection...
+			</span>
+
 			<ViewDecks
 				selectedDecks={selectedDecks} // { id: bool, id: bool }
 				setSelectedDecks={setSelectedDecks}
@@ -94,10 +127,30 @@ export default function PublicDecks() {
 				color="primary"
 				className={classes.button}
 				onClick={() => {
-					history.push('/create-deck');
+					const ticked = publicDeckIds.filter(
+						(d) => selectedDecks[d],
+					);
+
+					const unTicked = publicDeckIds.filter(
+						(d) => !selectedDecks[d],
+					);
+
+					// Are there any ids ticked that aren't already
+					// part of the users collection?
+					const toAdd = ticked.filter((d) => !usersDecks.includes(d));
+
+					// Are there any decks in the uses collection
+					//  which are now unticked?
+					const toDel = usersDecks.filter((d) =>
+						unTicked.includes(d),
+					);
+
+					// If for any reason we don't leave the page next we need
+					// to either update usersDecks or fetch it again
+					setSaveChanges([toAdd, toDel]);
 				}}
 			>
-				Save
+				Done
 			</Button>
 		</PublicDecksDiv>
 	);
