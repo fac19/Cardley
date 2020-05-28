@@ -29,6 +29,7 @@ export default function PracticeCard({
 			setPracticeStage('finishedPractice');
 		}, timer * 1000);
 		return () => clearTimeout(practiceTime);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
