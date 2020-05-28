@@ -5,9 +5,11 @@ const ViewDecksDiv = styled.div`
 	height: 100%;
 	width: 100%;
 	max-width: 320px;
+	max-height: 400px;
 	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
 	cursor: pointer;
+	overflow-x: auto;
 `;
 
 const useStyles = makeStyles({

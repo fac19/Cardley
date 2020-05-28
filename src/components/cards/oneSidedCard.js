@@ -39,10 +39,7 @@ export default function OneSidedCard({
 
 	return (
 		<>
-			<Card
-				className={classes.root}
-				style={{ backgroundColor: currentCard.card.color }}
-			>
+			<Card className={classes.root}>
 				<CardContent>
 					<Typography
 						className={classes.title}

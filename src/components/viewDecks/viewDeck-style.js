@@ -4,8 +4,11 @@ import styled from 'styled-components';
 const ViewDecksDiv = styled.div`
 	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
+
 	justify-content: space-between;
 	overflow-y: auto;
+	height: 50vh;
 `;
 
 const useStyles = makeStyles(() => ({
