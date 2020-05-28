@@ -12,7 +12,7 @@ export default function ProtectedRoute({ path, component }) {
 	if (authorised()) {
 		return <Route exact path={path} component={component} />;
 	}
-	return <Redirect to="/login" />;
+	return <Redirect to="/" />;
 }
 
 ProtectedRoute.propTypes = {

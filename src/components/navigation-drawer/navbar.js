@@ -9,7 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -88,11 +88,17 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 	const logoutHandler = () => {
 		localStorage.removeItem('auth');
 		handleDrawerClose();
-		history.push('/landing');
+		history.push('/');
 	};
 
 	const loginHandler = () => {
+		handleDrawerClose();
 		history.push('/login');
+	};
+
+	const signupHandler = () => {
+		handleDrawerClose();
+		history.push('/signup');
 	};
 
 	return (
@@ -143,40 +149,61 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 						)}
 					</IconButton>
 				</div>
-				<Divider />
-				<List>
-					{[
-						'Home',
-						'Practice',
-						'Your Decks',
-						'Public decks',
-						'View Profile',
-					].map((text) => (
-						<ListItem
-							onClick={() => {
-								handleDrawerClose();
-
-								setCurrentPage(() => text);
-							}}
-							button
-							component="a"
-							href={`/${removeSpaces(text)}`}
-							key={text}
-						>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
-				</List>
-				<Divider />
+				{/* <Divider />
+				<Divider /> */}
 				<List>
 					{authorised() ? (
-						<ListItem onClick={logoutHandler} button key="log out">
-							<ListItemText primary="Log out" />
-						</ListItem>
+						<>
+							{[
+								'Home',
+								'Practice',
+								'Your Decks',
+								'Public Decks',
+								'View Profile',
+							].map((text) => (
+								<ListItem
+									onClick={() => {
+										handleDrawerClose();
+
+										setCurrentPage(() => text);
+									}}
+									button
+									component="a"
+									href={
+										text === 'Home'
+											? `/`
+											: `/${removeSpaces(text)}`
+									}
+									key={text}
+								>
+									<ListItemText primary={text} />
+								</ListItem>
+							))}
+							<ListItem
+								onClick={logoutHandler}
+								button
+								key="Log out"
+							>
+								<ListItemText primary="Log out" />
+							</ListItem>
+						</>
 					) : (
-						<ListItem onClick={loginHandler} button key="Log in">
-							<ListItemText primary="Log in" />
-						</ListItem>
+						<>
+							<ListItem
+								onClick={loginHandler}
+								button
+								key="Log in"
+							>
+								<ListItemText primary="Log in" />
+							</ListItem>
+							<ListItem
+								onClick={signupHandler}
+								button
+								key="Sign up"
+							>
+								<ListItemText primary="Sign up" />
+							</ListItem>
+						</>
 					)}
 					{/* {['Log out'].map((text) => (
 						<ListItem onClick={logoutHandler} button key={text}>

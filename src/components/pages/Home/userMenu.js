@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 // import logo from '../../../../public/flash.png' // relative path to image
 // import clsx from 'clsx';
-
 // import Link from '@material-ui/core/Link';
 
 const UserMenuDiv = styled.div`
@@ -40,6 +39,13 @@ const LogoContainer = styled.div`
 
 export default function userMenu() {
 	// const { classes } = props;
+
+	// TODO This file / component needs to be renamed to homePage!!!
+	// TODO This file / component needs to be renamed to homePage!!!
+	// TODO This file / component needs to be renamed to homePage!!!
+	// TODO This file / component needs to be renamed to homePage!!!
+	// TODO This file / component needs to be renamed to homePage!!!
+
 	return (
 		<UserMenuDiv>
 			home
@@ -55,11 +61,11 @@ export default function userMenu() {
 			</Button>
 			<Button
 				component={Link}
-				to="/manage-decks"
+				to="/your-decks"
 				variant="contained"
 				color="primary"
 			>
-				Manage Decks
+				Your Decks
 			</Button>
 		</UserMenuDiv>
 	);
