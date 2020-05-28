@@ -71,7 +71,7 @@ export default function SignupPage() {
 			email: formData.get('email'),
 			password: formData.get('password'),
 		})
-			.then(() => history.push('/landing'))
+			.then(() => history.push('/'))
 			.catch((error) => setErrorMsg(error.toString()));
 		// should actually be second last page - accessible by same api
 	};

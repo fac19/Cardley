@@ -88,7 +88,7 @@ export default function Navbar({ currentPage, setCurrentPage }) {
 	const logoutHandler = () => {
 		localStorage.removeItem('auth');
 		handleDrawerClose();
-		history.push('/landing');
+		history.push('/');
 	};
 
 	const loginHandler = () => {
