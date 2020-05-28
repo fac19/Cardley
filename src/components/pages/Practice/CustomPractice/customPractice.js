@@ -187,7 +187,7 @@ export default function CustomPractice({
 CustomPractice.propTypes = {
 	selectedDecks: PropTypes.objectOf(PropTypes.string).isRequired,
 	setSelectedDecks: PropTypes.func.isRequired,
-	decks: PropTypes.arrayOf(PropTypes.object).isRequired,
+	decks: PropTypes.arrayOf(PropTypes.object),
 	setDecks: PropTypes.func.isRequired,
 	setPracticeStage: PropTypes.func.isRequired,
 	timer: PropTypes.number,
@@ -196,4 +196,5 @@ CustomPractice.propTypes = {
 
 CustomPractice.defaultProps = {
 	timer: 0,
+	decks: null,
 };

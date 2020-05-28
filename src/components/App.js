@@ -24,7 +24,7 @@ function HomePageSelector() {
 
 function App() {
 	const [currentPage, setCurrentPage] = React.useState('CARDLEY');
-	const [viewingDeck, setViewingDeck] = React.useState('outer state');
+	const [viewingDeck, setViewingDeck] = React.useState(0);
 
 	// setCurrentPage('test')
 	return (

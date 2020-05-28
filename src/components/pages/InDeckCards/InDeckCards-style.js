@@ -8,7 +8,13 @@ const FormElem = styled.form`
 	align-items: center;
 `;
 
-const useStyles = makeStyles(() => ({
+const EditCardsWrapper = styled.div`
+	margin-top: 50pxx @media (min-width: 600px) {
+		margin-top: 200px;
+	}
+`;
+
+const useStyles = makeStyles((theme) => ({
 	root: {
 		width: 300,
 		height: 300,
@@ -18,6 +24,13 @@ const useStyles = makeStyles(() => ({
 		maxWidth: 300,
 		marginTop: '3rem',
 	},
+	startButton: {
+		position: 'fixed',
+		bottom: '10px',
+		[theme.breakpoints.up('md')]: {
+			bottom: '100px',
+		},
+	},
 }));
 
-export { useStyles, FormElem };
+export { useStyles, FormElem, EditCardsWrapper };

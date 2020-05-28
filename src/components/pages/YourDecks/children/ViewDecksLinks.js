@@ -22,6 +22,10 @@ export default function ViewDecksLinks({ decks, setViewingDeck }) {
 }
 
 ViewDecksLinks.propTypes = {
-	decks: PropTypes.arrayOf(PropTypes.object).isRequired,
+	decks: PropTypes.arrayOf(PropTypes.object),
 	setViewingDeck: PropTypes.func.isRequired,
+};
+
+ViewDecksLinks.defaultProps = {
+	decks: [{}],
 };
