@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { useStyles } from './cards-styles';
 
 const HtmlToReactParser = require('html-to-react').Parser;
 
 const htmlToReactParser = new HtmlToReactParser();
 
-export default function CardFace({ deckname, content, color, classes }) {
+export default function CardFace({ deckname, content, color }) {
 	const contentJSX = htmlToReactParser.parse(content);
+	const classes = useStyles();
 
 	return (
 		<Card className={classes.root} style={{ backgroundColor: color }}>
@@ -36,8 +38,4 @@ CardFace.propTypes = {
 	deckname: PropTypes.string.isRequired,
 	content: PropTypes.string.isRequired,
 	color: PropTypes.string.isRequired,
-	classes: PropTypes.shape({
-		root: PropTypes.string.isRequired,
-		title: PropTypes.string.isRequired,
-	}).isRequired,
 };

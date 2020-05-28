@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardViewer from './CardViewer';
 import EditCard from '../../EditCard/EditCard';
-import { useStyles, FormElem } from './InDeckCards-style';
+import { useStyles, FormElem, EditCardsWrapper } from './InDeckCards-style';
 // when the user leaves this page (depending on how they leave it, i.e. not for editing a card), setViewingDeck to false
 
 import BackButton from '../../BackButton/BackButon';
@@ -23,7 +23,7 @@ export default function InDeckCards({ viewingDeck }) {
 
 	if (cards) {
 		return (
-			<div>
+			<EditCardsWrapper>
 				<BackButton to="your-decks" />
 				{cards.map((card) => {
 					return <CardViewer card={card} />;
@@ -58,7 +58,7 @@ export default function InDeckCards({ viewingDeck }) {
 						Add
 					</Button>
 				</FormElem>
-			</div>
+			</EditCardsWrapper>
 		);
 	}
 	return 'Loading...';
