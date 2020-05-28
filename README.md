@@ -1,3 +1,7 @@
+## Libraries used on the frontend
+
+[React-quill](https://github.com/zenoamaro/react-quill) on [QuillJS](https://quilljs.com/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

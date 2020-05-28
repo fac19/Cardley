@@ -1,7 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
-const ViewDecksDiv = styled.div``;
+const ViewDecksDiv = styled.div`
+	height: 100%;
+	width: 100%;
+	max-width: 320px;
+	display: flex;
+	justify-content: center;
+	cursor: pointer;
+`;
 
 const useStyles = makeStyles({
 	root: {
@@ -19,7 +26,7 @@ const useStyles = makeStyles({
 		marginBottom: 12,
 	},
 	card: {
-		width: '150px',
+		width: '120px',
 		height: '75px',
 		margin: '1rem',
 	},
