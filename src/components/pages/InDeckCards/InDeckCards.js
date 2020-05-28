@@ -20,7 +20,7 @@ export default function InDeckCards({ viewingDeck }) {
 		setUserActivity('browsing');
 	}, []);
 
-	useDeckCards({ setCards, viewingDeck, setErrorState }); // useEffect wrapper
+	useDeckCards({ setCards, viewingDeck, setErrorState, userActivity }); // useEffect wrapper
 
 	const goToEdit = (card) => {
 		setEditingCard(() => card);
@@ -52,7 +52,6 @@ export default function InDeckCards({ viewingDeck }) {
 				</Button>
 				<BackButton to="your-decks" />
 				{cards.map((card) => {
-					console.log(card);
 					return (
 						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 						<div

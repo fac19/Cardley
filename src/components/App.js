@@ -36,25 +36,6 @@ function App() {
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/landing" component={Landing} />
 					<ProtectedRoute path="/home" component={UserMenu} />
-
-					{/* <ProtectedRoute
-						path="/custom-practice"
-						component={() => (
-							<CustomPractice />
-							// <Practice
-							// 	deckToPractice={[
-							// 		{
-							// 			deck_name: 'French Vocab',
-							// 			deck_id: 1,
-							// 		},
-							// 		{
-							// 			deck_name: 'ES6 APIs',
-							// 			deck_id: 2,
-							// 		},
-							// 	]}
-							// />
-						)}
-					/> */}
 					<ProtectedRoute path="/practice" component={Practice} />
 					<ProtectedRoute
 						path="/view-profile"
