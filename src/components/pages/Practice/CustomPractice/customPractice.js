@@ -30,7 +30,7 @@ function findSelectedDecks({
 		}
 	}); // lookupTerms now contains a list of keys in selectedDecks for whick checked is "true"
 
-	// is it neccessary to get rid of eval() here/a better way to write this/parse a string to bool?
+	// is it neccessary to get rid of eval() here/a better way to write this/parse a string to bool without a for loop?
 	// as there is no user input, perhaps no security risk?
 	// eslint-disable-next-line no-eval
 	const isADeckSelected = eval(trueOrFalseArr.join(' || '));
