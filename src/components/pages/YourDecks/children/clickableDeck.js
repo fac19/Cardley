@@ -26,6 +26,6 @@ export default function ClickableDeck({ deck, setViewingDeck }) {
 }
 
 ClickableDeck.propTypes = {
-	deck: PropTypes.objectOf(PropTypes.string).isRequired,
+	deck: PropTypes.objectOf(PropTypes.any).isRequired,
 	setViewingDeck: PropTypes.func.isRequired,
 };

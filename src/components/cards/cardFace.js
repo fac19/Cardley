@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { useStyles } from './cards-styles';
 
 const HtmlToReactParser = require('html-to-react').Parser;
 
 const htmlToReactParser = new HtmlToReactParser();
-
-export default function CardFace({ deckname, content, color, classes }) {
+export default function CardFace({ deckname, content, color }) {
 	const contentJSX = htmlToReactParser.parse(content);
+	const classes = useStyles();
 
 	return (
 		<Card className={classes.root} style={{ backgroundColor: color }}>
@@ -33,11 +34,13 @@ export default function CardFace({ deckname, content, color, classes }) {
 // Question: do we want to hand down class as a prop as we are doing now?
 
 CardFace.propTypes = {
-	deckname: PropTypes.string.isRequired,
-	content: PropTypes.string.isRequired,
-	color: PropTypes.string.isRequired,
-	classes: PropTypes.shape({
-		root: PropTypes.string.isRequired,
-		title: PropTypes.string.isRequired,
-	}).isRequired,
+	deckname: PropTypes.string,
+	content: PropTypes.string,
+	color: PropTypes.string,
+};
+
+CardFace.defaultProps = {
+	deckname: 'mydeck',
+	content: 'some content',
+	color: '#fff',
 };

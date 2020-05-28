@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useStyles, PrettoSlider } from './cards-styles';
+import CardFace from './cardFace';
 
 export default function OneSidedCard({
 	currentCard,
 	setSliderValue,
 	sliderValue,
-	currentDeck,
+	// currentDeck,
 	nextCardHandler,
 }) {
 	const classes = useStyles();
@@ -39,24 +37,11 @@ export default function OneSidedCard({
 
 	return (
 		<>
-			<Card
-				className={classes.root}
-				style={{ backgroundColor: currentCard.card.color }}
-			>
-				<CardContent>
-					<Typography
-						className={classes.title}
-						color="textSecondary"
-						gutterBottom
-					>
-						{currentDeck.deck_name}
-					</Typography>
-
-					<Typography variant="body1" component="p">
-						{currentCard.card.front_text}
-					</Typography>
-				</CardContent>
-			</Card>
+			<CardFace
+				deckname={currentCard.card.deck_id}
+				content={currentCard.card.front_text}
+				color={currentCard.card.color}
+			/>
 
 			<PrettoSlider
 				style={{ color: sliderColor }}
@@ -90,7 +75,7 @@ OneSidedCard.propTypes = {
 	}),
 	setSliderValue: PropTypes.func,
 	sliderValue: PropTypes.number,
-	currentDeck: PropTypes.number,
+	// currentDeck: PropTypes.number,
 	nextCardHandler: PropTypes.func,
 };
 
@@ -102,6 +87,6 @@ OneSidedCard.defaultProps = {
 	},
 	setSliderValue: () => {},
 	sliderValue: 1,
-	currentDeck: 1,
+	// currentDeck: 1,
 	nextCardHandler: (a) => a,
 };
