@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import FlashMessage from 'react-flash-message';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardEditor from '../../cards/CardEditor';
+import { FlashMessageDiv, useStyles } from './editACard-style';
 
 function submitAndReturn({
 	editingCard,
@@ -37,10 +39,6 @@ function submitAndReturn({
 			console.log('error', err);
 		});
 }
-// post request, wait for ok
-// then useDeckCards({setCards, viewingDeck})
-// then setUserActivity('browsing)
-// catch error and set error state
 
 export default function EditACard({
 	setUserActivity,
@@ -53,6 +51,7 @@ export default function EditACard({
 	);
 	const [backMarkup, setBackMarkup] = React.useState(editingCard.back_text);
 	const [errorState, setErrorState] = React.useState(null);
+	const classes = useStyles();
 
 	if (errorState) {
 		console.log(errorState);
@@ -73,6 +72,15 @@ export default function EditACard({
 			>
 				Discard and return
 			</Button>
+			<FlashMessageDiv>
+				{errorState && (
+					<FlashMessage duration={5000}>
+						<span className={classes.flashMessage}>
+							Please select decks to pratice
+						</span>
+					</FlashMessage>
+				)}
+			</FlashMessageDiv>
 			<CardEditor
 				markup={frontMarkup}
 				setMarkup={setFrontMarkup}
