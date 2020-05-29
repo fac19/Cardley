@@ -26,7 +26,7 @@ To set up the frontend locally run the following commands in your terminal `git 
 One thing to be aware of is the backend URL. In the production repo the URL of the backend is live. To truly run the project locally (__strongly__ recommended for development):
 1) run the API server locally by `git clone <back-end-repo-url>`, `cd`, `npm i`, `npm run dev`.
 (backend repo url: ```https://github.com/fac19/Cardley---backend.git```)
-2) SET UP TEST DATABASE? --follow instructions on backend readMe?
+2) Set up databases as instructed [here](https://github.com/fac19/Cardley---backend)
 3) Make sure the backend is running on ```localhost:3001``` 
 4) change the URL the frontend uses to access the API, found at `Cardley/src/utils/fetchData/backend-url.js` to
 
@@ -36,8 +36,6 @@ const url = 'http://localhost:3001/';
 export default url;
 // make your choice
 ```
-
-5) Set up a database as directed in the backend repo's readme
 
 ## Libraries
 
