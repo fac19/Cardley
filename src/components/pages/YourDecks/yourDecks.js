@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ViewDecksLinks from './children/ViewDecksLinks';
 import useYourDecks from '../../../hooks/useYourDecks';
-import { useStyles, ButtonsDiv, YourDecksHeader } from './yourDecks-style';
+import { useStyles, YourDecksHeader } from './yourDecks-style';
+import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
 
 export default function MyDecks({ setViewingDeck }) {
 	const classes = useStyles();

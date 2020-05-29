@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
 	root: {
 		width: 300,
-		height: 200,
+		height: 300,
 	},
 	quill: {
 		height: '100%',

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactCardFlip from 'react-card-flip';
+import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
+import BackButton from '../../BackButton/BackButon';
 import EditCard from '../../cards/CardEditor';
 import { useStyles, FormElem } from './InDeckCards-style';
+
 import fetchData from '../../../utils/fetchData/fetchData';
 
 export default function AddANewCard({ viewingDeck }) {
@@ -11,6 +15,7 @@ export default function AddANewCard({ viewingDeck }) {
 	const [frontMarkup, setFrontMarkup] = React.useState('');
 	const [backMarkup, setBackMarkup] = React.useState('');
 	const [submissionData, setSubmissionData] = React.useState(false);
+	const [isFlipped, setIsFlipped] = useState(false);
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -47,36 +52,51 @@ export default function AddANewCard({ viewingDeck }) {
 	return (
 		<FormElem>
 			<h2>Add a new card:</h2>
-			<h3>Front:</h3>
-			<EditCard
-				markup={frontMarkup}
-				setMarkup={setFrontMarkup}
-				key="hello"
-			/>
-			<h3>Back:</h3>
-			<EditCard
-				markup={backMarkup}
-				setMarkup={setBackMarkup}
-				key="goodbye"
-			/>
-			<Button
-				// type="submit"
-				className={classes.button}
-				variant="contained"
-				color="primary"
-				// className={classes.button}
-				onClick={() => {
-					// send post request to server
-					// update deck state on front end
-					// event.preventDefault();
-					setFrontMarkup(frontMarkup);
-					setBackMarkup(backMarkup);
+			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+				<>
+					<h3>Front:</h3>
+					<EditCard
+						markup={frontMarkup}
+						setMarkup={setFrontMarkup}
+						key="front"
+					/>
+				</>
+				<>
+					<h3>Back:</h3>
+					<EditCard
+						markup={backMarkup}
+						setMarkup={setBackMarkup}
+						key="back"
+					/>
+				</>
+			</ReactCardFlip>
+			<ButtonsDiv>
+				<BackButton to="your-decks" />
+				<Button
+					className={classes.cardButton}
+					variant="contained"
+					color="primary"
+					onClick={() => setIsFlipped(!isFlipped)}
+				>
+					Flip
+				</Button>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={() => {
+						setFrontMarkup(frontMarkup);
+						setBackMarkup(backMarkup);
 
-					setSubmissionData([viewingDeck, frontMarkup, backMarkup]);
-				}}
-			>
-				Add
-			</Button>
+						setSubmissionData([
+							viewingDeck,
+							frontMarkup,
+							backMarkup,
+						]);
+					}}
+				>
+					Add
+				</Button>
+			</ButtonsDiv>
 		</FormElem>
 	);
 }

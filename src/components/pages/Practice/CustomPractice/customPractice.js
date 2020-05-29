@@ -121,7 +121,6 @@ export default function CustomPractice({
 				<Button
 					color="primary"
 					variant="contained"
-					className={classes.cardButton}
 					onClick={() => select(true)}
 				>
 					Select All
@@ -129,21 +128,10 @@ export default function CustomPractice({
 				<Button
 					color="primary"
 					variant="contained"
-					className={classes.cardButton}
 					onClick={() => select(false)}
 				>
 					Select None
 				</Button>
-				{/* <Button
-					color="primary"
-					variant="contained"
-					className={classes.cardButton}
-					onClick={() => {}}
-					disable
-				>
-					Show Important Cards Only
-				</Button> */}
-				{/* </ButtonGroup> */}
 			</ButtonsDiv>
 			<CustomPracticeDiv>
 				<ViewDecks

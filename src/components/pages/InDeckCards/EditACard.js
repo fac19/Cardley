@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import FlashMessage from 'react-flash-message';
+import ReactCardFlip from 'react-card-flip';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardEditor from '../../cards/CardEditor';
-import { FlashMessageDiv, useStyles } from './editACard-style';
+import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
+// import FlashMessage from 'react-flash-message';
+// import { FlashMessageDiv, useStyles } from './editACard-style';
 
 function submitAndReturn({
 	editingCard,
@@ -50,38 +52,30 @@ export default function EditACard({
 		editingCard.front_text,
 	);
 	const [backMarkup, setBackMarkup] = React.useState(editingCard.back_text);
-	const [errorState, setErrorState] = React.useState(null);
-	const classes = useStyles();
-
-	if (errorState) {
-		console.log(errorState);
-	} // don't want to change return because user should see content - popup is better
+	const [, setErrorState] = React.useState(null);
+	const [isFlipped, setIsFlipped] = useState(false);
 
 	return (
 		<>
-			<Button
-				fullWidth
-				variant="contained"
-				color="primary"
-				// className={classes.button}
-				onClick={() => {
-					setFrontMarkup('');
-					setBackMarkup('');
-					setUserActivity('browsing');
-				}}
-			>
-				Discard and return
-			</Button>
-			<FlashMessageDiv>
-				{errorState && (
-					<FlashMessage duration={5000}>
-						<span className={classes.flashMessage}>
-							Please select decks to pratice
-						</span>
-					</FlashMessage>
-				)}
-			</FlashMessageDiv>
-			<CardEditor
+			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+				<>
+					<h3>Front:</h3>
+					<CardEditor
+						markup={frontMarkup}
+						setMarkup={setFrontMarkup}
+						key="front"
+					/>
+				</>
+				<>
+					<h3>Back:</h3>
+					<CardEditor
+						markup={backMarkup}
+						setMarkup={setBackMarkup}
+						key="back"
+					/>
+				</>
+			</ReactCardFlip>
+			{/* <CardEditor
 				markup={frontMarkup}
 				setMarkup={setFrontMarkup}
 				key="front"
@@ -90,26 +84,47 @@ export default function EditACard({
 				markup={backMarkup}
 				setMarkup={setBackMarkup}
 				key="back"
-			/>
-			<Button
-				fullWidth
-				variant="contained"
-				color="primary"
-				// className={classes.button}
-				onClick={() => {
-					submitAndReturn({
-						editingCard,
-						frontMarkup,
-						backMarkup,
-						setErrorState,
-						setUserActivity,
-						setCards,
-						viewingDeck,
-					});
-				}}
-			>
-				Save and return
-			</Button>
+			/> */}
+
+			<ButtonsDiv>
+				<Button
+					variant="contained"
+					color="primary"
+					// className={classes.button}
+					onClick={() => {
+						setFrontMarkup('');
+						setBackMarkup('');
+						setUserActivity('browsing');
+					}}
+				>
+					Discard
+				</Button>
+				<Button
+					// className={classes.cardButton}
+					variant="contained"
+					color="primary"
+					onClick={() => setIsFlipped(!isFlipped)}
+				>
+					Flip
+				</Button>
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={() => {
+						submitAndReturn({
+							editingCard,
+							frontMarkup,
+							backMarkup,
+							setErrorState,
+							setUserActivity,
+							setCards,
+							viewingDeck,
+						});
+					}}
+				>
+					Save
+				</Button>
+			</ButtonsDiv>
 		</>
 	);
 }

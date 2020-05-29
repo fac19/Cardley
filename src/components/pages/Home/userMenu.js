@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-// import logo from '../../../../public/flash.png' // relative path to image
+import FrontLogo from '../../../img/logoSVG'; // relative path to image
 // import clsx from 'clsx';
 // import Link from '@material-ui/core/Link';
 
@@ -48,8 +48,9 @@ export default function userMenu() {
 
 	return (
 		<UserMenuDiv>
-			home
-			<LogoContainer>logo here</LogoContainer>
+			<LogoContainer>
+				<FrontLogo />
+			</LogoContainer>
 			<Button
 				// className={clsx(classes.root)}
 				component={Link}
@@ -66,6 +67,14 @@ export default function userMenu() {
 				color="primary"
 			>
 				Your Decks
+			</Button>
+			<Button
+				component={Link}
+				to="/public-decks"
+				variant="contained"
+				color="primary"
+			>
+				Public Decks
 			</Button>
 		</UserMenuDiv>
 	);
