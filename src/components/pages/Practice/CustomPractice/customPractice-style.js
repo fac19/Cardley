@@ -8,6 +8,11 @@ const CustomPracticeDiv = styled.div`
 
 const ButtonsDiv = styled.div`
 	display: flex;
+	width: 100%;
+	padding-bottom: 10px;
+	margin-left: -10px;
+	max-width: 325px;
+	justify-content: space-between;
 `;
 
 const TimerDiv = styled.div`

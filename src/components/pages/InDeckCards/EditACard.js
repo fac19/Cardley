@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-// import useDeckCards from '../../../hooks/useDeckCards';
+import ReactCardFlip from 'react-card-flip';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardEditor from '../../cards/CardEditor';
+import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
 
 function submitAndReturn({
 	editingCard,
@@ -35,29 +36,34 @@ function submitAndReturn({
 // catch error and set error state
 
 export default function EditACard({ setUserActivity, editingCard }) {
-	console.log(editingCard);
 	const [frontMarkup, setFrontMarkup] = React.useState(
 		editingCard.front_text,
 	);
 	const [backMarkup, setBackMarkup] = React.useState(editingCard.back_text);
 	const [, setErrorState] = React.useState(null);
+	const [isFlipped, setIsFlipped] = useState(false);
 
 	return (
 		<>
-			<Button
-				fullWidth
-				variant="contained"
-				color="primary"
-				// className={classes.button}
-				onClick={() => {
-					setFrontMarkup('');
-					setBackMarkup('');
-					setUserActivity('browsing');
-				}}
-			>
-				Discard and return
-			</Button>
-			<CardEditor
+			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+				<>
+					<h3>Front:</h3>
+					<CardEditor
+						markup={frontMarkup}
+						setMarkup={setFrontMarkup}
+						key="front"
+					/>
+				</>
+				<>
+					<h3>Back:</h3>
+					<CardEditor
+						markup={backMarkup}
+						setMarkup={setBackMarkup}
+						key="back"
+					/>
+				</>
+			</ReactCardFlip>
+			{/* <CardEditor
 				markup={frontMarkup}
 				setMarkup={setFrontMarkup}
 				key="front"
@@ -66,23 +72,45 @@ export default function EditACard({ setUserActivity, editingCard }) {
 				markup={backMarkup}
 				setMarkup={setBackMarkup}
 				key="back"
-			/>
-			<Button
-				fullWidth
-				variant="contained"
-				color="primary"
-				// className={classes.button}
-				onClick={() => {
-					submitAndReturn({
-						editingCard,
-						frontMarkup,
-						backMarkup,
-						setErrorState,
-					});
-				}}
-			>
-				Save and return
-			</Button>
+			/> */}
+
+			<ButtonsDiv>
+				<Button
+					variant="contained"
+					color="primary"
+					// className={classes.button}
+					onClick={() => {
+						setFrontMarkup('');
+						setBackMarkup('');
+						setUserActivity('browsing');
+					}}
+				>
+					Discard
+				</Button>
+				<Button
+					// className={classes.cardButton}
+					variant="contained"
+					color="primary"
+					onClick={() => setIsFlipped(!isFlipped)}
+				>
+					Flip
+				</Button>
+				<Button
+					variant="contained"
+					color="primary"
+					// className={classes.button}
+					onClick={() => {
+						submitAndReturn({
+							editingCard,
+							frontMarkup,
+							backMarkup,
+							setErrorState,
+						});
+					}}
+				>
+					Save
+				</Button>
+			</ButtonsDiv>
 		</>
 	);
 }

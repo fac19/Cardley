@@ -7,7 +7,7 @@ export default function BackButton({ to }) {
 	const history = useHistory();
 	return (
 		<Button
-			fullWidth
+			// fullWidth
 			variant="contained"
 			color="primary"
 			// className={classes.button}

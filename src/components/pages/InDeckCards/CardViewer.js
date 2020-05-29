@@ -7,11 +7,13 @@ export default function CardViewer({ card }) {
 	// return front_text
 	return (
 		<>
+			<p>Front</p>
 			<CardFace
 				deckname={card.deck_id}
 				content={card.front_text}
 				color={card.color}
 			/>
+			<p>Back</p>
 			<CardFace
 				deckname={card.deck_id}
 				content={card.back_text}
