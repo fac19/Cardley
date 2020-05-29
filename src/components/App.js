@@ -40,25 +40,6 @@ function App() {
 					<Route exact path="/signup" component={SignupPage} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/" component={HomePageSelector} />
-
-					{/* <ProtectedRoute
-						path="/custom-practice"
-						component={() => (
-							<CustomPractice />
-							// <Practice
-							// 	deckToPractice={[
-							// 		{
-							// 			deck_name: 'French Vocab',
-							// 			deck_id: 1,
-							// 		},
-							// 		{
-							// 			deck_name: 'ES6 APIs',
-							// 			deck_id: 2,
-							// 		},
-							// 	]}
-							// />
-						)}
-					/> */}
 					<ProtectedRoute path="/practice" component={Practice} />
 					<ProtectedRoute
 						path="/view-profile"

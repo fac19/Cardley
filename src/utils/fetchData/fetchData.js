@@ -34,9 +34,23 @@ const fetchData = (method, endpoint, options = {}) => {
 
 	if (body) fetchObj.body = JSON.stringify(body);
 
-	return fetch(url + endpoint, fetchObj)
-		.then(decodeJSONOrDie)
-		.then(dieIfError);
+	return (
+		fetch(url + endpoint, fetchObj)
+			// .then(res => {
+			// 	console.log(1, res)
+			// 	return res
+			// })
+			.then(decodeJSONOrDie)
+			// .then(res => {
+			// 	console.log(2, res)
+			// 	return res
+			// })
+			.then(dieIfError)
+	);
+	// .then(res => {
+	// 	console.log(3, res)
+	// 	return res
+	// })
 };
 
 export default fetchData;
