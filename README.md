@@ -17,7 +17,7 @@ We have some sample users that you can use to play around with the site, and you
 
 ## Things that don't work yet...
 - Creating a deck. You can edit decks you own but you can't create new ones yet so you will need to use one of the above accounts if you want to try and edit cards.
-- Lots of other things, several buttons don't take you where they should for example!
+- Lots of other things, several buttons don't take you where they should for example! (use the menu!)
 
 ## Local setup
 
