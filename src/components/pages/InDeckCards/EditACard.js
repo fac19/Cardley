@@ -5,11 +5,15 @@ import ReactCardFlip from 'react-card-flip';
 import fetchData from '../../../utils/fetchData/fetchData';
 import CardEditor from '../../cards/CardEditor';
 import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
+// import FlashMessage from 'react-flash-message';
+// import { FlashMessageDiv, useStyles } from './editACard-style';
 
 function submitAndReturn({
 	editingCard,
 	frontMarkup,
-	backMarkup /*  setErrorState, */,
+	backMarkup,
+	setErrorState,
+	setUserActivity,
 }) {
 	const payload = {
 		front_text: frontMarkup,
@@ -20,22 +24,30 @@ function submitAndReturn({
 		color: editingCard.color,
 	};
 
-	fetchData('PUT', `cards${editingCard.id}`, {
+	fetchData('PUT', `cards/${editingCard.card_id}`, {
 		body: payload,
 	})
 		.then((res) => {
-			console.log(res);
+			if (res.updated === true) {
+				// useDeckCards({ setDeckCards, viewingDeck, setErrorState });
+				setUserActivity(() => 'browsing');
+				// console.log(res);
+			} else {
+				throw new Error('Could not add your card to the database');
+			}
 		})
 		.catch((err) => {
+			setErrorState(String(err));
 			console.log('error', err);
 		});
 }
-// post request, wait for ok
-// then useDeckCards({setCards, viewingDeck})
-// then setUserActivity('browsing)
-// catch error and set error state
 
-export default function EditACard({ setUserActivity, editingCard }) {
+export default function EditACard({
+	setUserActivity,
+	editingCard,
+	setCards,
+	viewingDeck,
+}) {
 	const [frontMarkup, setFrontMarkup] = React.useState(
 		editingCard.front_text,
 	);
@@ -98,13 +110,15 @@ export default function EditACard({ setUserActivity, editingCard }) {
 				<Button
 					variant="contained"
 					color="primary"
-					// className={classes.button}
 					onClick={() => {
 						submitAndReturn({
 							editingCard,
 							frontMarkup,
 							backMarkup,
 							setErrorState,
+							setUserActivity,
+							setCards,
+							viewingDeck,
 						});
 					}}
 				>
@@ -115,18 +129,10 @@ export default function EditACard({ setUserActivity, editingCard }) {
 	);
 }
 
-// server.put('/cards/:card_id', auth, updateCard);
-/*
-			front_text: req.body.front_text,
-			front_image: req.body.front_image,
-			back_text: req.body.back_text,
-			back_image: req.body.back_image,
-			important: req.body.important,
-			color: req.body.color,
-*/
-
 EditACard.propTypes = {
 	setUserActivity: PropTypes.func.isRequired,
+	setCards: PropTypes.func.isRequired,
+	viewingDeck: PropTypes.number.isRequired,
 	editingCard: PropTypes.shape({
 		card_id: PropTypes.number.isRequired,
 		deck_id: PropTypes.number.isRequired,

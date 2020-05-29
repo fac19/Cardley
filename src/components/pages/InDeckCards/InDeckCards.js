@@ -27,7 +27,7 @@ export default function InDeckCards({ viewingDeck }) {
 		setUserActivity('browsing');
 	}, []);
 
-	useDeckCards({ setCards, viewingDeck, setErrorState }); // useEffect wrapper
+	useDeckCards({ setCards, viewingDeck, setErrorState, userActivity }); // useEffect wrapper
 
 	const goToEdit = (card) => {
 		setEditingCard(() => card);
