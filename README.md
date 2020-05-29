@@ -77,17 +77,20 @@ This is an open source project. We love contributors, so get involved! (not actu
 
 ## Building the App
 
+### Contributors
+
+* Roger-Heathcote 
+* VatsKan (Vatsal Kanoria)
+* Ivo-Evans 
+* Tacotoemeck (Tom Wagner)
+
 ### Design week: Planning, Figma prototyping, User testing
 
-### File structure
+We tested and adjusted our Figma prototypes after doing user surveys. Planned detail user flows and used several agile methadologies in the design stages.
 
-### Frameworks and Libraries (Tom)
+### API 
 
-### API (Roger)
-
-### Deployment (Ivo)
-
-### Contributors
+The backend is a RESTful API, for more info on the routes, see the backend repo. 
 
 ### Issue management
 We use Github's issue tracker to track issues, and we assign labels for priority and estimates.
@@ -95,7 +98,6 @@ We use Github's issue tracker to track issues, and we assign labels for priority
 Priorities range from P1-P4, where P1 is the most urgent and P4 the least. Estimates start and E1 and go up, where a single E unit represents an hour of one person's time, or half an hour of pair-programming.
 
 If you make an issue, you should give it E and P labels. When you complete an issue you should give it an A label, to indicate how long the issue actually took. A labels use the same scale as E labels.
-
 
 ### Linting rules
 
