@@ -11,7 +11,6 @@ import LoginPage from './pages/Login/login';
 import Landing from './pages/Home/landing';
 import UserMenu from './pages/Home/userMenu';
 import ViewProfile from './pages/ViewProfile/ViewProfile';
-// import CustomPractice from './pages/Practice/CustomPractice/customPractice';
 import YourDecks from './pages/YourDecks/yourDecks';
 import PublicDecks from './pages/PublicDecks/publicDecks';
 import Practice from './pages/Practice/practice';
