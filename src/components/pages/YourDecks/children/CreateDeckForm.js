@@ -1,13 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-// import { useStyles } from './Deck-style';
 import { makeStyles } from '@material-ui/core/styles';
 
-export default function CreateDeckForm() {
-	// this is the textfield styling from material-ui docs
+export default function CreateDeckForm({ setDeckCreate }) {
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			'& > *': {
@@ -15,9 +14,36 @@ export default function CreateDeckForm() {
 				width: '25ch',
 			},
 		},
-		button: {},
+		button: {}, // need to style button
 	}));
 	const classes = useStyles();
+
+	const cancelHandler = (event) => {
+		event.preventDefault();
+		setDeckCreate(false);
+	};
+
+	const doneHandler = (event) => {
+		event.preventDefault(); // prevent page refresh
+		const form = document.querySelector('#createDeckForm');
+		const formData = new FormData(form);
+		// eslint-disable-next-line no-console
+		console.log(formData.get('deckName'));
+
+		// login({
+		// 	email: formData.get('email'),
+		// 	password: formData.get('password'),
+		// })
+		// 	.then(() => history.push('/home'))
+		// 	.catch(() => {
+		// 		setSelectionErr(true);
+		// 		setTimeout(() => {
+		// 			setSelectionErr(false);
+		// 		}, 4000);
+		// 	});
+
+		// setDeckCreate(false);
+	};
 
 	return (
 		<Card
@@ -38,9 +64,15 @@ export default function CreateDeckForm() {
 					autoComplete="off"
 				>
 					<TextField
-						id="outlined-basic"
-						label="New Deck Name"
 						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						id="deckName"
+						label="New Deck Name"
+						name="deckName"
+						// autoComplete="deckName"
+						// autoFocus
 					/>
 					<Button
 						type="submit"
@@ -48,7 +80,7 @@ export default function CreateDeckForm() {
 						variant="contained"
 						color="primary"
 						className={classes.button}
-						// onClick={}
+						onClick={doneHandler}
 					>
 						Done
 					</Button>
@@ -58,7 +90,7 @@ export default function CreateDeckForm() {
 						variant="contained"
 						color="primary"
 						className={classes.button}
-						// onClick={}
+						onClick={cancelHandler}
 					>
 						Cancel
 					</Button>
@@ -67,3 +99,7 @@ export default function CreateDeckForm() {
 		</Card>
 	);
 }
+
+CreateDeckForm.propTypes = {
+	setDeckCreate: PropTypes.func.isRequired,
+};

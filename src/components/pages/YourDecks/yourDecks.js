@@ -17,17 +17,15 @@ export default function MyDecks({ setViewingDeck }) {
 
 	const [deckCreate, setDeckCreate] = React.useState(false);
 
-	function createDeckClickHandler(event) {
+	function createDeckClickHandler() {
 		setDeckCreate(true);
-		// eslint-disable-next-line no-console
-		console.log('target', event.target);
 	}
 
 	return (
 		<>
 			<YourDecksHeader>Click on a deck you wish to Edit</YourDecksHeader>
 			<ViewDecksLinks decks={decks} setViewingDeck={setViewingDeck} />
-			{deckCreate && <CreateDeckForm />}
+			{deckCreate && <CreateDeckForm setDeckCreate={setDeckCreate} />}
 			<ButtonsDiv>
 				<Button
 					type="submit"
