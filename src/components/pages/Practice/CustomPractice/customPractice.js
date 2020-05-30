@@ -13,7 +13,10 @@ import {
 	TimerDiv,
 	PracticePageText,
 	FlashMessageDiv,
+	TimerContainer,
+	TimerDivP,
 	useStyles,
+	multiSelectButtons,
 } from './customPractice-style';
 
 function findSelectedDecks({
@@ -84,10 +87,40 @@ export default function CustomPractice({
 
 	return (
 		<>
-			<PracticePageText>
+			<h2>Start a new practice session:</h2>
+			<TimerContainer>
+				<TimerDivP>Set time:</TimerDivP>
+				<TimerDiv>
+					<IconButton
+						color="primary"
+						aria-label="remove one minute from timer"
+						component="span"
+						onClick={handleDecrement}
+					>
+						<RemoveIcon />
+					</IconButton>
+					<TextField
+						className={classes.timerInput}
+						id="outlined-basic"
+						label="minutes"
+						variant="outlined"
+						value={timer}
+						onChange={(event, value) => setTimer(value)}
+					/>
+					<IconButton
+						color="primary"
+						aria-label="add one minut to timer"
+						component="span"
+						onClick={handleIncrement}
+					>
+						<AddIcon />
+					</IconButton>
+				</TimerDiv>
+			</TimerContainer>
+			{/* <PracticePageText>
 				How long would you like to practice?
-			</PracticePageText>
-			<TimerDiv>
+			</PracticePageText> */}
+			{/* <TimerDiv>
 				<IconButton
 					color="primary"
 					aria-label="remove one minute from timer"
@@ -112,22 +145,24 @@ export default function CustomPractice({
 				>
 					<AddIcon />
 				</IconButton>
-			</TimerDiv>
+			</TimerDiv> */}
 
 			<PracticePageText>
 				Which decks would you like to practice?
 			</PracticePageText>
-			<ButtonsDiv>
+			<ButtonsDiv style={multiSelectButtons}>
 				<Button
 					color="primary"
-					variant="contained"
+					variant="outlined"
+					size="small"
 					onClick={() => select(true)}
 				>
 					Select All
 				</Button>
 				<Button
+					size="small"
 					color="primary"
-					variant="contained"
+					variant="outlined"
 					onClick={() => select(false)}
 				>
 					Select None
@@ -150,6 +185,7 @@ export default function CustomPractice({
 					</FlashMessage>
 				)}
 			</FlashMessageDiv>
+
 			<Button
 				className={classes.startButton}
 				variant="contained"

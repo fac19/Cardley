@@ -57,9 +57,10 @@ export default function EditACard({
 
 	return (
 		<>
+			<h2>Edit card:</h2>
+			{isFlipped ? <h3>Back:</h3> : <h3>Front:</h3>}
 			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
 				<>
-					<h3>Front:</h3>
 					<CardEditor
 						markup={frontMarkup}
 						setMarkup={setFrontMarkup}
@@ -67,7 +68,6 @@ export default function EditACard({
 					/>
 				</>
 				<>
-					<h3>Back:</h3>
 					<CardEditor
 						markup={backMarkup}
 						setMarkup={setBackMarkup}
@@ -75,16 +75,6 @@ export default function EditACard({
 					/>
 				</>
 			</ReactCardFlip>
-			{/* <CardEditor
-				markup={frontMarkup}
-				setMarkup={setFrontMarkup}
-				key="front"
-			/>
-			<CardEditor
-				markup={backMarkup}
-				setMarkup={setBackMarkup}
-				key="back"
-			/> */}
 
 			<ButtonsDiv>
 				<Button
