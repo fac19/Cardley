@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import fetchData from '../../../../utils/fetchData/fetchData';
 
 export default function CreateDeckForm({ setDeckCreate }) {
 	const useStyles = makeStyles((theme) => ({
@@ -14,49 +15,45 @@ export default function CreateDeckForm({ setDeckCreate }) {
 				width: '25ch',
 			},
 		},
-		button: {}, // need to style button
+		card: {}, // can style card also
+		button: {}, // need to style buttons
 	}));
 	const classes = useStyles();
 
 	const cancelHandler = (event) => {
-		event.preventDefault();
+		event.preventDefault(); // is prevent default required?
 		setDeckCreate(false);
 	};
 
 	const doneHandler = (event) => {
-		event.preventDefault(); // prevent page refresh
+		event.preventDefault(); // prevent page refresh?
+
+		// perhaps try to refactor below without use of dom manipulation.
 		const form = document.querySelector('#createDeckForm');
 		const formData = new FormData(form);
-		// eslint-disable-next-line no-console
-		console.log(formData.get('deckName'));
 
-		// login({
-		// 	email: formData.get('email'),
-		// 	password: formData.get('password'),
-		// })
-		// 	.then(() => history.push('/home'))
-		// 	.catch(() => {
-		// 		setSelectionErr(true);
-		// 		setTimeout(() => {
-		// 			setSelectionErr(false);
-		// 		}, 4000);
-		// 	});
+		const deckName = formData.get('deckName');
 
-		// setDeckCreate(false);
+		fetchData('POST', `decks/${deckName}`)
+			.then(() => setDeckCreate(false))
+			.then(() => window.location.reload()) // not the best method...try doing a useEffect instead so that not rerendering entire DOM! but how?
+			.catch((error) => {
+				return (
+					<div>
+						<p>`${error}`</p>
+						<a href="#/">Return Home</a>
+					</div>
+				);
+			}); // how to test error handling and also need to handle errors better here.
 	};
 
 	return (
 		<Card
 			style={{ backgroundColor: 'rgb(252,193,6)' }}
 			className={classes.card}
-			// onClick={() => {
-			// 	setViewingDeck(deck.deck_id);
-			// 	history.push('/cards-in-deck');
-			// }}
 		>
 			<CardContent>
-				{/* <label htmlFor="createDeckForm">New
-					Deck Name</label> */}
+				{/* do we need label for the form in material UI? */}
 				<form
 					id="createDeckForm"
 					className={classes.root}
@@ -101,5 +98,6 @@ export default function CreateDeckForm({ setDeckCreate }) {
 }
 
 CreateDeckForm.propTypes = {
+	// edit the isRequired thing so doesnt create a warning
 	setDeckCreate: PropTypes.func.isRequired,
 };
