@@ -52,9 +52,9 @@ export default function AddANewCard({ viewingDeck }) {
 	return (
 		<FormElem>
 			<h2>Add a new card:</h2>
+			{isFlipped ? <h3>Back:</h3> : <h3>Front:</h3>}
 			<ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
 				<>
-					<h3>Front:</h3>
 					<EditCard
 						markup={frontMarkup}
 						setMarkup={setFrontMarkup}
@@ -62,7 +62,6 @@ export default function AddANewCard({ viewingDeck }) {
 					/>
 				</>
 				<>
-					<h3>Back:</h3>
 					<EditCard
 						markup={backMarkup}
 						setMarkup={setBackMarkup}

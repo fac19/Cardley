@@ -1,6 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
+const TimerContainer = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: space-evenly;
+`;
+
+const TimerDivP = styled.p`
+	font-size: 1rem;
+	padding: 0.2rem;
+`;
+
 const CustomPracticeDiv = styled.div`
 	min-height: 40vh;
 	width: 100%;
@@ -25,7 +36,6 @@ const PracticePageText = styled.p`
 	font-size: 1rem;
 	text-align:
 	padding: 0.2rem;
-	back
 `;
 
 const FlashMessageDiv = styled.div`
@@ -77,5 +87,7 @@ export {
 	TimerDiv,
 	PracticePageText,
 	FlashMessageDiv,
+	TimerContainer,
+	TimerDivP,
 	useStyles,
 };

@@ -11,7 +11,7 @@ const ViewDecksDiv = styled.div`
 	height: 50vh;
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		width: 150,
 		marginLeft: '0px',
@@ -28,17 +28,18 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: 12,
 	},
 	checkboxClass: {
-		paddingRight: '0.2rem',
-		position: 'absolute',
-		bottom: '-10px',
-		left: '-12px',
-		[theme.breakpoints.up('md')]: {
-			bottom: '0px',
-			left: '-12px',
-		},
+		padding: 0,
+		// paddingRight: '0.2rem',
+		// position: 'absolute',
+		// bottom: '-10px',
+		// left: '-12px',
+		// [theme.breakpoints.up('md')]: {
+		// 	bottom: '0px',
+		// 	left: '-12px',
+		// },
 	},
 	card: {
-		width: '120px',
+		width: '110px',
 		height: '75px',
 		marginTop: '1rem',
 		marginLeft: '0rem',
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 		// border: '1px solid rgb(64,84,181)',
 	},
 	checkboxParent: {
-		position: 'relative',
 		marginLeft: '0px',
 	},
 }));
