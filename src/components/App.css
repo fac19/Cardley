@@ -8,13 +8,17 @@
 	align-items: center;
 }
 
+html {
+	margin-top: 80px;
+}
+
 @media (min-width: 600px) {
 	html {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		margin-bottom: 10rem;
-		margin-top: 100px;
+
 		max-height: 600px;
 	}
 }

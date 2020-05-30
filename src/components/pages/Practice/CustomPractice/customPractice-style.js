@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const CustomPracticeDiv = styled.div`
 	min-height: 40vh;
 	width: 100%;
+	padding-left: 1rem;
 `;
 
 const ButtonsDiv = styled.div`
@@ -36,8 +37,12 @@ const useStyles = makeStyles((theme) => ({
 	startButton: {
 		position: 'fixed',
 		bottom: '10px',
+		padding: '1rem',
+		marginRight: '1rem',
+		width: '95%',
 		[theme.breakpoints.up('md')]: {
 			bottom: '100px',
+			width: '290px',
 		},
 	},
 	timerInput: {
@@ -56,7 +61,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+// inline
+
+const multiSelectButtons = {
+	marginLeft: '0px',
+	paddingBottom: 0,
+	paddingLeft: '1rem',
+	paddingRight: '1rem',
+};
+
 export {
+	multiSelectButtons,
 	CustomPracticeDiv,
 	ButtonsDiv,
 	TimerDiv,

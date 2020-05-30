@@ -14,6 +14,7 @@ import {
 	PracticePageText,
 	FlashMessageDiv,
 	useStyles,
+	multiSelectButtons,
 } from './customPractice-style';
 
 function findSelectedDecks({
@@ -117,17 +118,19 @@ export default function CustomPractice({
 			<PracticePageText>
 				Which decks would you like to practice?
 			</PracticePageText>
-			<ButtonsDiv>
+			<ButtonsDiv style={multiSelectButtons}>
 				<Button
 					color="primary"
-					variant="contained"
+					variant="outlined"
+					size="small"
 					onClick={() => select(true)}
 				>
 					Select All
 				</Button>
 				<Button
+					size="small"
 					color="primary"
-					variant="contained"
+					variant="outlined"
 					onClick={() => select(false)}
 				>
 					Select None
@@ -150,6 +153,7 @@ export default function CustomPractice({
 					</FlashMessage>
 				)}
 			</FlashMessageDiv>
+
 			<Button
 				className={classes.startButton}
 				variant="contained"
