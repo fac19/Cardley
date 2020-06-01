@@ -11,10 +11,6 @@ export default function Practice() {
 	const [timer, setTimer] = React.useState(5);
 	useYourDecks({ setDecks, setSelectedDecks });
 
-	// React.useEffect(() => {
-	// 	setSelectedDecks({});
-	// });
-
 	if (practiceStage === 'customPractice') {
 		return (
 			<CustomPractice
@@ -46,6 +42,7 @@ export default function Practice() {
 			<FinishPractice
 				setPracticeStage={setPracticeStage}
 				setDecks={setDecks}
+				setSelectedDecks={setSelectedDecks}
 			/>
 		);
 	}

@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
+import useYourDecks from '../../../../hooks/useYourDecks';
 
 const FinishPracticeWrapper = styled.div`
 	height: 100vh;
@@ -18,8 +19,14 @@ const TextDiv = styled.div`
 	margin: 10rem;
 `;
 
-export default function FinishPractice({ setPracticeStage }) {
+export default function FinishPractice({
+	setPracticeStage,
+	setSelectedDecks,
+	setDecks,
+}) {
 	const { width, height } = useWindowSize();
+
+	useYourDecks({ setDecks, setSelectedDecks });
 	return (
 		<FinishPracticeWrapper>
 			<Confetti width={width} height={height} />
@@ -39,4 +46,6 @@ export default function FinishPractice({ setPracticeStage }) {
 
 FinishPractice.propTypes = {
 	setPracticeStage: PropTypes.func.isRequired,
+	setSelectedDecks: PropTypes.func.isRequired,
+	setDecks: PropTypes.func.isRequired,
 };
