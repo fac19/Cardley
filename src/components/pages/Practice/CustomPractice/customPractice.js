@@ -117,35 +117,6 @@ export default function CustomPractice({
 					</IconButton>
 				</TimerDiv>
 			</TimerContainer>
-			{/* <PracticePageText>
-				How long would you like to practice?
-			</PracticePageText> */}
-			{/* <TimerDiv>
-				<IconButton
-					color="primary"
-					aria-label="remove one minute from timer"
-					component="span"
-					onClick={handleDecrement}
-				>
-					<RemoveIcon />
-				</IconButton>
-				<TextField
-					className={classes.timerInput}
-					id="outlined-basic"
-					label="minutes"
-					variant="outlined"
-					value={timer}
-					onChange={(event, value) => setTimer(value)}
-				/>
-				<IconButton
-					color="primary"
-					aria-label="add one minut to timer"
-					component="span"
-					onClick={handleIncrement}
-				>
-					<AddIcon />
-				</IconButton>
-			</TimerDiv> */}
 
 			<PracticePageText>
 				Which decks would you like to practice?

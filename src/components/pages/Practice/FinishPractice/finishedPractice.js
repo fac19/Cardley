@@ -27,7 +27,9 @@ export default function FinishPractice({ setPracticeStage }) {
 			<Button
 				variant="contained"
 				color="primary"
-				onClick={() => setPracticeStage('customPractice')}
+				onClick={() => {
+					setPracticeStage('customPractice');
+				}}
 			>
 				Practice
 			</Button>

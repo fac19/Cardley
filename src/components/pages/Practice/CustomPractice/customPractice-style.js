@@ -15,7 +15,6 @@ const TimerDivP = styled.p`
 const CustomPracticeDiv = styled.div`
 	min-height: 40vh;
 	width: 100%;
-	padding-left: 1rem;
 `;
 
 const ButtonsDiv = styled.div`
