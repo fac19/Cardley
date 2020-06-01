@@ -73,7 +73,6 @@ export default function LoginPage() {
 					setSelectionErr(false);
 				}, 4000);
 			});
-		// should actually be second last page - accessible by same api
 	};
 
 	return (
