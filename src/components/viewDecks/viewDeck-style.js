@@ -29,29 +29,19 @@ const useStyles = makeStyles(() => ({
 	},
 	checkboxClass: {
 		padding: 0,
-		// paddingRight: '0.2rem',
-		// position: 'absolute',
-		// bottom: '-10px',
-		// left: '-12px',
-		// [theme.breakpoints.up('md')]: {
-		// 	bottom: '0px',
-		// 	left: '-12px',
-		// },
+		// visibility: 'hidden',
+		position: 'absolute',
 	},
-	card: {
-		width: '110px',
-		height: '75px',
-		marginTop: '1rem',
-		marginLeft: '0rem',
-	},
+
 	checked: {
-		opacity: '0.8',
-		// width: '118px',
-		// height: '73px',
+		// backgroundColor: 'rgb(252,193,6)',
+		// // height: '73px',
 		// border: '1px solid rgb(64,84,181)',
 	},
 	checkboxParent: {
-		marginLeft: '0px',
+		margin: 0,
+		marginTop: '0.5rem',
+		position: 'relative',
 	},
 }));
 

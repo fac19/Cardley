@@ -37,6 +37,12 @@ export default function Practice() {
 	}
 
 	if (practiceStage === 'finishedPractice') {
-		return <FinishPractice setPracticeStage={setPracticeStage} />;
+		return (
+			<FinishPractice
+				setPracticeStage={setPracticeStage}
+				setDecks={setDecks}
+				setSelectedDecks={setSelectedDecks}
+			/>
+		);
 	}
 }

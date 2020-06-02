@@ -2,22 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import fetchData from '../../../../utils/fetchData/fetchData';
+import { useStyles, FormButtonsDiv, NewDeckForm } from './Deck-style';
 
 export default function CreateDeckForm({ setDeckCreate }) {
-	const useStyles = makeStyles((theme) => ({
-		root: {
-			'& > *': {
-				margin: theme.spacing(1),
-				width: '25ch',
-			},
-		},
-		card: {}, // can style card also
-		button: {}, // need to style buttons
-	}));
 	const classes = useStyles();
 
 	const cancelHandler = (event) => {
@@ -47,19 +39,20 @@ export default function CreateDeckForm({ setDeckCreate }) {
 			}); // how to test error handling and also need to handle errors better here.
 	};
 
+	const cardClasses = `${classes.root} ${classes.newDeckForm}`;
+
 	return (
-		<Card
-			style={{ backgroundColor: 'rgb(252,193,6)' }}
-			className={classes.card}
-		>
+		<Card className={cardClasses}>
+			<CardMedia
+				component="img"
+				alt="Form to add new deck of cards"
+				height="90"
+				image="https://www.pngitem.com/pimgs/m/25-254660_transparent-flashcards-clipart-flashcard-png-png-download.png"
+				title="Add new deck"
+			/>
 			<CardContent>
-				{/* do we need label for the form in material UI? */}
-				<form
-					id="createDeckForm"
-					className={classes.root}
-					noValidate
-					autoComplete="off"
-				>
+				<NewDeckForm id="createDeckForm" noValidate autoComplete="off">
+					<Typography>Create a new deck</Typography>
 					<TextField
 						variant="outlined"
 						margin="normal"
@@ -71,29 +64,74 @@ export default function CreateDeckForm({ setDeckCreate }) {
 						// autoComplete="deckName"
 						// autoFocus
 					/>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.button}
-						onClick={doneHandler}
-					>
-						Done
-					</Button>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.button}
-						onClick={cancelHandler}
-					>
-						Cancel
-					</Button>
-				</form>
+					<FormButtonsDiv>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							onClick={doneHandler}
+						>
+							Save
+						</Button>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							onClick={cancelHandler}
+						>
+							Cancel
+						</Button>
+					</FormButtonsDiv>
+				</NewDeckForm>
 			</CardContent>
 		</Card>
+
+		// <Card
+		// 	style={{ backgroundColor: 'rgb(252,193,6)' }}
+		// 	className={classes.card}
+		// >
+		// 	<CardContent>
+		// 		{/* do we need label for the form in material UI? */}
+		// 		<form
+		// 			id="createDeckForm"
+		// 			className={classes.root}
+		// 			noValidate
+		// 			autoComplete="off"
+		// 		>
+		// 			<TextField
+		// 				variant="outlined"
+		// 				margin="normal"
+		// 				required
+		// 				fullWidth
+		// 				id="deckName"
+		// 				label="New Deck Name"
+		// 				name="deckName"
+		// 				// autoComplete="deckName"
+		// 				// autoFocus
+		// 			/>
+		// 			<Button
+		// 				type="submit"
+		// 				fullWidth
+		// 				variant="contained"
+		// 				color="primary"
+		// 				className={classes.button}
+		// 				onClick={doneHandler}
+		// 			>
+		// 				Done
+		// 			</Button>
+		// 			<Button
+		// 				type="submit"
+		// 				fullWidth
+		// 				variant="contained"
+		// 				color="primary"
+		// 				className={classes.button}
+		// 				onClick={cancelHandler}
+		// 			>
+		// 				Cancel
+		// 			</Button>
+		// 		</form>
+		// 	</CardContent>
+		// </Card>
 	);
 }
 
