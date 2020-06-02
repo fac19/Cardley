@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ViewDecksLinks from './children/ViewDecksLinks';
+import CreateDeckForm from './children/CreateDeckForm';
 import useYourDecks from '../../../hooks/useYourDecks';
 import { useStyles, YourDecksHeader } from './yourDecks-style';
 import { ButtonsDiv } from '../../ButtonsDiv/ButtonsDiv';
@@ -14,11 +15,17 @@ export default function MyDecks({ setViewingDeck }) {
 	const [, setSelectedDecks] = React.useState({});
 	useYourDecks({ setDecks, setSelectedDecks });
 
+	const [deckCreate, setDeckCreate] = React.useState(false);
+
+	function createDeckClickHandler() {
+		setDeckCreate(true);
+	}
+
 	return (
 		<>
-			<YourDecksHeader>Select deck you wish to Edit </YourDecksHeader>
+			<YourDecksHeader>Click on a deck you wish to Edit</YourDecksHeader>
 			<ViewDecksLinks decks={decks} setViewingDeck={setViewingDeck} />
-
+			{deckCreate && <CreateDeckForm setDeckCreate={setDeckCreate} />}
 			<ButtonsDiv>
 				<Button
 					// type="submit"
@@ -26,9 +33,7 @@ export default function MyDecks({ setViewingDeck }) {
 					variant="contained"
 					color="primary"
 					className={classes.button}
-					onClick={() => {
-						history.push('/create-deck');
-					}}
+					onClick={createDeckClickHandler}
 				>
 					Create Deck
 				</Button>
