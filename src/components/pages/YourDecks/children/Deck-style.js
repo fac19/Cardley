@@ -14,7 +14,11 @@ const ViewDecksDiv = styled.div`
 
 const useStyles = makeStyles({
 	root: {
-		width: 150,
+		'width': 140,
+		'margin': '0.25rem',
+		'&:hover': {
+			background: 'rgb(252,193,6)',
+		},
 	},
 	bullet: {
 		display: 'inline-block',
@@ -26,11 +30,6 @@ const useStyles = makeStyles({
 	},
 	pos: {
 		marginBottom: 12,
-	},
-	card: {
-		width: '120px',
-		height: '75px',
-		margin: '1rem',
 	},
 	button: {
 		'padding': '20px',

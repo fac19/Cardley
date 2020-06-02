@@ -21,7 +21,7 @@ export default function MyDecks({ setViewingDeck }) {
 
 			<ButtonsDiv>
 				<Button
-					type="submit"
+					// type="submit"
 					fullWidth
 					variant="contained"
 					color="primary"
@@ -34,7 +34,7 @@ export default function MyDecks({ setViewingDeck }) {
 				</Button>
 
 				<Button
-					type="submit"
+					// type="submit"
 					fullWidth
 					variant="contained"
 					color="primary"
